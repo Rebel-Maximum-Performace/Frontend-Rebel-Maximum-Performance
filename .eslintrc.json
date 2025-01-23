@@ -1,0 +1,21 @@
+{
+    "extends": [
+      "next/core-web-vitals"
+    ],
+    "rules": {
+      "no-console": "off",
+      "react/react-in-jsx-scope": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "no-unused-vars": [
+        "warn",
+        {
+          "vars": "all",
+          "args": "after-used",
+          "ignoreRestSiblings": true
+        }
+      ],
+      "import/no-duplicates": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "off"
+    }
+}

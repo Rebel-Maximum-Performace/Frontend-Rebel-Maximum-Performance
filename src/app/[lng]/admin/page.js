@@ -1,5 +1,5 @@
-import CheckAuthorizationAdmin from '@/pages/CheckAuthorizationAdmin';
-import DashboardPageView from '@/pages/Dashboard';
+import CheckAuthorizationAdmin from '@/views/CheckAuthorizationAdmin';
+import DashboardPageView from '@/views/Dashboard';
 import React from 'react';
 const AdminPage = (props) => (
   <CheckAuthorizationAdmin>

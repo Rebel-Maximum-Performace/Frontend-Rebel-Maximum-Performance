@@ -1,4 +1,4 @@
-import HistoriesAdminPageView from '@/pages/HistoriesAdmin';
+import HistoriesAdminPageView from '@/views/HistoriesAdmin';
 
 const HistoriesAdminPage = (props) => <HistoriesAdminPageView {...props} />;
 

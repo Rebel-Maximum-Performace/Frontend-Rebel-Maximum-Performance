@@ -5,6 +5,8 @@ import { languages } from '../i18n/setting';
 import { dir } from 'i18next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import WebContextProvider from '@/context/WebContext';
+import { Suspense } from 'react';
+import Loader from '@/components/Loader';
 
 const helvetica_light = localFont({
   src: '../../assets/fonts/Helvetica/Helvetica-Light.ttf',
@@ -37,11 +39,13 @@ const RootLayout = async ({ children, params }) => {
       <body
         className={`antialiased ${helvetica_light.variable} ${helvetica_regular.variable} ${helvetica_bold.variable}`}
       >
-        <ReactQueryWrapper>
-          <NuqsAdapter>
-            <WebContextProvider>{children}</WebContextProvider>
-          </NuqsAdapter>
-        </ReactQueryWrapper>
+        <Suspense fallback={<p>...</p>}>
+          <ReactQueryWrapper>
+            <NuqsAdapter>
+              <WebContextProvider>{children}</WebContextProvider>
+            </NuqsAdapter>
+          </ReactQueryWrapper>
+        </Suspense>
       </body>
     </html>
   );

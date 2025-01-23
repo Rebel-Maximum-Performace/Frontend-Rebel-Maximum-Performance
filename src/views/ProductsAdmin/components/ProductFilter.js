@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Select from '@/components/Form/Select';
 import TextInput from '@/components/Form/TextInput';
 import Popup from '@/components/Popup';
-import AttributeCheckboxGroup from '@/pages/Products/components/AttributeCheckboxGroup';
+import AttributeCheckboxGroup from '@/views/Products/components/AttributeCheckboxGroup';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const ProductFilter = ({

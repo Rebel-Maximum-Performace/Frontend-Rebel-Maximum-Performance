@@ -1,6 +1,6 @@
 import React from 'react';
-import AboutUsPageView from '@/pages/AboutUs';
-import UserWrapper from '@/pages/Page/components/UserWrapper';
+import AboutUsPageView from '@/views/AboutUs';
+import UserWrapper from '@/views/Page/components/UserWrapper';
 
 const AboutUsPage = (props) => (
   <UserWrapper>

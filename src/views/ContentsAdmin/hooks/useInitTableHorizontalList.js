@@ -8,7 +8,7 @@ import { useWebContext } from '@/context/WebContext';
 import { mappingErrorFieldHorizontalList } from '@/helpers';
 import { useEffect, useState } from 'react';
 import { FaRegEdit, FaTrash } from 'react-icons/fa';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const useInitTableHorizontalList = () => {
   const { t, onErrorMutation } = useWebContext();

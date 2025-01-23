@@ -1,5 +1,5 @@
-import CheckAuthorizationAdmin from '@/pages/CheckAuthorizationAdmin';
-import ContentsAdminPageView from '@/pages/ContentsAdmin';
+import CheckAuthorizationAdmin from '@/views/CheckAuthorizationAdmin';
+import ContentsAdminPageView from '@/views/ContentsAdmin';
 
 const ContentsAdminPage = (props) => (
   <CheckAuthorizationAdmin>

@@ -1,5 +1,5 @@
-import CategoriesAdminPageView from '@/pages/CategoriesAdmin';
-import CheckAuthorizationAdmin from '@/pages/CheckAuthorizationAdmin';
+import CategoriesAdminPageView from '@/views/CategoriesAdmin';
+import CheckAuthorizationAdmin from '@/views/CheckAuthorizationAdmin';
 
 const CategoriesAdminPage = (props) => (
   <CheckAuthorizationAdmin>

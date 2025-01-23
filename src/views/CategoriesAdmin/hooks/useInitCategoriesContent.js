@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { FaRegEdit, FaTrash } from 'react-icons/fa';
 import useDebounce from '@/hooks/useDebounce';

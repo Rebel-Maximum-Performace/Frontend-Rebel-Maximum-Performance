@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://rebelmaximumperformance-dev.vercel.app/
+
+# Sitemaps
+Sitemap: https://rebelmaximumperformance-dev.vercel.app/sitemap.xml

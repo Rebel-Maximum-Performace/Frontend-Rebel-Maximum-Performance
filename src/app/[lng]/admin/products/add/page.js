@@ -1,6 +1,6 @@
 import ProductContextProvider from '@/context/ProductContext';
-import AddProductAdminPageView from '@/pages/AddProductAdmin';
-import CheckAuthorizationAdmin from '@/pages/CheckAuthorizationAdmin';
+import AddProductAdminPageView from '@/views/AddProductAdmin';
+import CheckAuthorizationAdmin from '@/views/CheckAuthorizationAdmin';
 
 const AddProductAdminPage = (props) => {
   return (

@@ -1,4 +1,4 @@
-import LoginAdminPageView from '@/pages/LoginAdmin';
+import LoginAdminPageView from '@/views/LoginAdmin';
 import React from 'react';
 
 const LoginPage = (props) => <LoginAdminPageView {...props} />;

@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductPageView from '@/pages/Products';
-import UserWrapper from '@/pages/Page/components/UserWrapper';
+import ProductPageView from '@/views/Products';
+import UserWrapper from '@/views/Page/components/UserWrapper';
 
 const ProductPage = (props) => (
   <UserWrapper>

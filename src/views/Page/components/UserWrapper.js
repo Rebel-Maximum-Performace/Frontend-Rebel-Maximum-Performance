@@ -5,7 +5,7 @@ import { useWebContext } from '@/context/WebContext';
 import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { toast, ToastContainer } from 'react-toastify';
 
 const UserWrapper = ({ children }) => {

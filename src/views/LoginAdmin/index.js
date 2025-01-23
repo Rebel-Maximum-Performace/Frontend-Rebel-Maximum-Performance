@@ -8,7 +8,7 @@ import { useWebContext } from '@/context/WebContext';
 import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const LoginAdminPage = () => {
   const csrfToken = getLocalStorage('csrfToken');

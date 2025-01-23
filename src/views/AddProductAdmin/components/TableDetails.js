@@ -6,7 +6,7 @@ import { FiFilter } from 'react-icons/fi';
 import Select from '@/components/Form/Select';
 import Table from './TableDetailsInput';
 import Popup from '@/components/Popup';
-import AttributeCheckboxGroup from '@/pages/Products/components/AttributeCheckboxGroup';
+import AttributeCheckboxGroup from '@/views/Products/components/AttributeCheckboxGroup';
 import Button from '@/components/Button';
 
 const TableDetails = ({ data, onChangeHeader, onChangeContent }) => {

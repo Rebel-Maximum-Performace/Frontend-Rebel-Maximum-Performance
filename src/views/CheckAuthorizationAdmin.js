@@ -3,22 +3,34 @@ import Loader from '@/components/Loader';
 import { useWebContext } from '@/context/WebContext';
 import { getLocalStorage } from '@/helpers/localStorage';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
 const CheckAuthorizationAdmin = ({ children }) => {
   const router = useRouter();
-  const csrfToken = getLocalStorage('csrfToken');
-  const accessToken = getLocalStorage('accessToken');
+  const [accessToken, setAccessToken] = useState(null);
+  const [csrfToken, setCsrfToken] = useState(null);
+
   const { setLoading, errorToast, loading, setErrorToast } = useWebContext();
 
   useEffect(() => {
-    if (!csrfToken || !accessToken) {
-      router.push('/admin/login');
-    } else {
-      setLoading(false);
+    if (window.localStorage !== undefined) {
+      const accessTokenStorage = getLocalStorage('accessToken');
+      const csrfTokenStorage = getLocalStorage('csrfToken');
+      const sssStorage = localStorage.getItem('SSS');
+      if (
+        !accessTokenStorage ||
+        !csrfTokenStorage ||
+        sssStorage?.toString() === 'true'
+      ) {
+        router.push('/admin/login');
+      } else {
+        setAccessToken(accessTokenStorage);
+        setCsrfToken(csrfTokenStorage);
+        setLoading(false);
+      }
     }
-  }, [router, localStorage]);
+  }, []);
 
   useEffect(() => {
     if (errorToast.open) {
@@ -38,7 +50,7 @@ const CheckAuthorizationAdmin = ({ children }) => {
   return (
     <>
       <Loader isLoading={loading} />
-      {accessToken && csrfToken && children}
+      {accessToken && csrfToken && <Suspense>{children}</Suspense>}
       <ToastContainer />
     </>
   );

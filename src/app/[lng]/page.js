@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import HomePageView from '@/views/Page';
 import UserWrapper from '@/views/Page/components/UserWrapper';

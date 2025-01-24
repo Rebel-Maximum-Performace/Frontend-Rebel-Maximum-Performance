@@ -1,10 +1,11 @@
 'use client';
+import React, { Suspense, useState } from 'react';
 import { publicAPI } from '@/api/endpoints';
 import Loader from '@/components/Loader';
 import { useWebContext } from '@/context/WebContext';
 import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -12,8 +13,8 @@ const UserWrapper = ({ children }) => {
   const { mutate } = useMutation({
     mutationFn: () => axios.get(`${publicAPI}/authorizationservice/tokenuser`),
   });
-  const [accessToken, setAccessToken] = useState(null);
-  const [csrfToken, setCsrfToken] = useState(null);
+  const [accessToken, setAccessToken] = useState();
+  const [csrfToken, setCsrfToken] = useState();
   const { setLoading, errorToast, loading, setErrorToast } = useWebContext();
 
   useEffect(() => {
@@ -25,10 +26,10 @@ const UserWrapper = ({ children }) => {
           onSuccess: (data) => {
             const csrfToken = data.headers.get('X-CSRF-Token');
             const accessToken = data.headers.get('Authorization');
-            setAccessToken(accessToken);
-            setCsrfToken(csrfToken);
+            const sss = data.headers.get('SSS');
             setLocalStorage('csrfToken', csrfToken);
             setLocalStorage('accessToken', accessToken);
+            localStorage.setItem('SSS', sss);
             window.location.reload();
           },
         });
@@ -38,7 +39,7 @@ const UserWrapper = ({ children }) => {
       }
     }
     setLoading(false);
-  }, [window]);
+  }, []);
 
   useEffect(() => {
     if (errorToast.open) {
@@ -59,7 +60,7 @@ const UserWrapper = ({ children }) => {
     return (
       <>
         <Loader isLoading={loading} />
-        {children}
+        <Suspense>{children}</Suspense>
         <ToastContainer />
       </>
     );

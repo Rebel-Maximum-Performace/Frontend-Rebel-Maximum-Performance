@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 const LoginAdminPage = () => {
-  const csrfToken = getLocalStorage('csrfToken');
-  const accessToken = getLocalStorage('accessToken');
+  const [accessToken, setAccessToken] = useState(null);
+  const [csrfToken, setCsrfToken] = useState(null);
   const router = useRouter();
   const { t, loading, setLoading } = useWebContext();
   const [dataForm, setDataForm] = useState({
@@ -37,8 +37,10 @@ const LoginAdminPage = () => {
     onSuccess: (data) => {
       const csrfToken = data.headers.get('X-CSRF-Token');
       const accessToken = data.headers.get('Authorization');
+      const sss = data.headers.get('SSS');
       setLocalStorage('csrfToken', csrfToken);
       setLocalStorage('accessToken', accessToken);
+      localStorage.setItem('SSS', sss);
       window.location.reload();
     },
   });
@@ -49,11 +51,18 @@ const LoginAdminPage = () => {
   };
 
   useEffect(() => {
-    if (csrfToken && accessToken) {
-      router.push('/admin');
+    if (window.localStorage !== undefined) {
+      const accessTokenStorage = getLocalStorage('accessToken');
+      const csrfTokenStorage = getLocalStorage('csrfToken');
+      const sssStorage = localStorage.getItem('SSS');
+      if (sssStorage?.toString() === 'true') {
+        router.push('/');
+      } else if (accessTokenStorage || csrfTokenStorage) {
+        router.push('/admin');
+      }
     }
     setLoading(false);
-  }, [getLocalStorage('csrfToken'), getLocalStorage('accessToken')]);
+  }, []);
 
   if (!csrfToken || !accessToken) {
     return (

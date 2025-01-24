@@ -38,14 +38,11 @@ const RootLayout = async ({ children, params }) => {
       <body
         className={`antialiased ${helvetica_light.variable} ${helvetica_regular.variable} ${helvetica_bold.variable}`}
       >
-        <Suspense>
-          <ReactQueryWrapper>
-            <NuqsAdapter>
-              <WebContextProvider>{children}</WebContextProvider>
-            </NuqsAdapter>
-          </ReactQueryWrapper>
-          s
-        </Suspense>
+        <ReactQueryWrapper>
+          <NuqsAdapter>
+            <WebContextProvider>{children}</WebContextProvider>
+          </NuqsAdapter>
+        </ReactQueryWrapper>
       </body>
     </html>
   );

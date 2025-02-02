@@ -5,10 +5,10 @@ import TextInput from '@/components/Form/TextInput';
 import Loader from '@/components/Loader';
 import DropDownLanguage from '@/components/TopBar/components/DropdownLanguage';
 import { useWebContext } from '@/context/WebContext';
-import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { decryptData, encryptData } from '@/helpers/encryption';
 
 const LoginAdminPage = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -38,10 +38,10 @@ const LoginAdminPage = () => {
       const csrfToken = data.headers.get('X-CSRF-Token');
       const accessToken = data.headers.get('Authorization');
       const sss = data.headers.get('SSS');
-      setLocalStorage('csrfToken', csrfToken);
-      setLocalStorage('accessToken', accessToken);
-      localStorage.setItem('SSS', sss);
-      window.location.reload();
+      localStorage.setItem('csrfToken', encryptData(csrfToken));
+      localStorage.setItem('accessToken', encryptData(accessToken));
+      localStorage.setItem('SSS', encryptData(sss));
+      router.push('/admin');
     },
   });
 
@@ -52,11 +52,14 @@ const LoginAdminPage = () => {
 
   useEffect(() => {
     if (window.localStorage !== undefined) {
-      const accessTokenStorage = getLocalStorage('accessToken');
-      const csrfTokenStorage = getLocalStorage('csrfToken');
+      const accessTokenStorage = localStorage.getItem('accessToken');
+      const csrfTokenStorage = localStorage.getItem('csrfToken');
       const sssStorage = localStorage.getItem('SSS');
-      if (sssStorage?.toString() === 'true') {
-        router.push('/');
+      if (sssStorage && decryptData(sssStorage) === 'true') {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('csrfToken');
+        localStorage.removeItem('SSS');
+        router.push('/admin/login');
       } else if (accessTokenStorage || csrfTokenStorage) {
         router.push('/admin');
       }

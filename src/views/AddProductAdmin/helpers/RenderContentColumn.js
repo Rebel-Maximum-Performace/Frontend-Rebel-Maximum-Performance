@@ -10,6 +10,8 @@ const RenderContentColumn = ({
   detailIndex,
   itemIndex,
   onChangeDetailItems,
+  details,
+  setDetails,
 }) => {
   const { t } = useWebContext();
   const { errorFields } = useProductContext();
@@ -52,6 +54,25 @@ const RenderContentColumn = ({
     const updatedDetails = [...details];
     updatedDetails[detailIndex].items[itemIndex].contents[contentIndex][field] =
       contentValue;
+    setDetails(updatedDetails);
+  };
+
+  const handleAddHeader = (detailIndex, itemIndex) => {
+    const updatedDetails = [...details];
+    updatedDetails[detailIndex].items[itemIndex].headers.push({
+      label: '',
+      field: '',
+      width: 0,
+    });
+    setDetails(updatedDetails);
+  };
+
+  const handleAddContent = (detailIndex, itemIndex) => {
+    const updatedDetails = [...details];
+    updatedDetails[detailIndex].items[itemIndex].contents.push({
+      id: updatedDetails[detailIndex].items[itemIndex].contents?.length,
+      '': '',
+    });
     setDetails(updatedDetails);
   };
 
@@ -241,6 +262,8 @@ const RenderContentColumn = ({
               contentValue,
             )
           }
+          handleAddHeader={() => handleAddHeader(detailIndex, itemIndex)}
+          handleAddContent={() => handleAddContent(detailIndex, itemIndex)}
         />
       );
     default:

@@ -1,34 +1,40 @@
-import TextInput from '@/components/Form/TextInput';
+// import TextInput from '@/components/Form/TextInput';
 import React from 'react';
-import { FaSearch } from 'react-icons/fa';
+// import { FaSearch } from 'react-icons/fa';
 import useInitTableDetailsInput from '../hooks/useInitTableDetailsInput';
-import { FiFilter } from 'react-icons/fi';
-import Select from '@/components/Form/Select';
+// import { FiFilter } from 'react-icons/fi';
+// import Select from '@/components/Form/Select';
 import Table from './TableDetailsInput';
-import Popup from '@/components/Popup';
-import AttributeCheckboxGroup from '@/views/Products/components/AttributeCheckboxGroup';
-import Button from '@/components/Button';
+// import Popup from '@/components/Popup';
+// import AttributeCheckboxGroup from '@/views/Products/components/AttributeCheckboxGroup';
+// import Button from '@/components/Button';
 
-const TableDetails = ({ data, onChangeHeader, onChangeContent }) => {
+const TableDetails = ({
+  data,
+  onChangeHeader,
+  onChangeContent,
+  handleAddHeader,
+  handleAddContent,
+}) => {
   const {
-    search,
-    onSearch,
-    t,
-    filter,
-    onChangeFilter,
-    sortByList,
-    dataFiltered,
-    orderList,
-    lng,
-    listFilter,
-    onChangeListFilter,
-    popupFilter,
-    setPopupFilter,
+    // search,
+    // onSearch,
+    // t,
+    // filter,
+    // onChangeFilter,
+    // sortByList,
+    // dataFiltered,
+    // orderList,
+    // listFilter,
+    // onChangeListFilter,
+    // popupFilter,
+    // setPopupFilter,
+    // onApplyFilter,
   } = useInitTableDetailsInput({ data });
 
   return (
     <div className="w-full">
-      <TextInput
+      {/* <TextInput
         name="search"
         placeholder={`${t('COMPONENT.Cari')}...`}
         onChange={onSearch}
@@ -68,17 +74,19 @@ const TableDetails = ({ data, onChangeHeader, onChangeContent }) => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="my-[15px] lg:my-[20px]">
         <Table
           headers={data.headers}
           contents={data.contents}
           onChangeHeader={onChangeHeader}
           onChangeContent={onChangeContent}
+          handleAddHeader={handleAddHeader}
+          handleAddColumn={handleAddContent}
         />
       </div>
 
-      <Popup
+      {/* <Popup
         open={popupFilter}
         onClose={() => setPopupFilter(false)}
         width="481px"
@@ -89,8 +97,8 @@ const TableDetails = ({ data, onChangeHeader, onChangeContent }) => {
         </h4>
         <AttributeCheckboxGroup
           attributes={listFilter}
-          filter={{ attributes: filter.filters }}
-          onChangeFilter={onChangeListFilter}
+          filterQuery={filter.filters}
+          onChangeQueryState={onChangeListFilter}
         />
         <div className="w-full flex justify-between mt-[15px]">
           <Button
@@ -104,13 +112,13 @@ const TableDetails = ({ data, onChangeHeader, onChangeContent }) => {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => {}}
+            onClick={onApplyFilter}
             className="w-[calc(50%-5px)] justify-center"
           >
             {t('COMPONENT.Terapkan')}
           </Button>
         </div>
-      </Popup>
+      </Popup> */}
     </div>
   );
 };

@@ -23,7 +23,8 @@
     "Berhasil": "Berhasil",
     "Berhasil Disimpan": "Berhasi Disimpan",
     "Berhasil Dihapus": "Berhasil Dihapus",
-    "Tidak ada data yang ditemukan": "Tidak ada data yang ditemukan"
+    "Tidak ada data yang ditemukan": "Tidak ada data yang ditemukan",
+    "Simpan Perubahan": "Simpan Perubahan"
   },
   "PRODUCTS": {
     "Urutkan Berdasarkan": "Urutkan Berdasarkan",
@@ -155,7 +156,16 @@
     "Format file tidak valid": "Format file tidak valid"
   },
   "BANNER": {
-    "Mengarahkan Ke": "Mengarahkan Ke"
+    "Mengarahkan Ke": "Mengarahkan Ke",
+    "Terdapat file dengan format yang tidak valid": "Terdapat file dengan yang tidak valid",
+    "Terdapat file yang melebihi ukuran maksimal": "Terdapat file yang melebihi ukuran maksimal",
+    "Data Spanduk Utama tidak lengkap": "Data Spanduk Utama tidak lengkap",
+    "Data Spanduk Produk Baru / Spanduk Promo tidak lengkap": "Data Spanduk Produk Baru / Spanduk Promo tidak lengkap",
+    "Data Spanduk Halaman Produk tidak lengkap": "Data Spanduk Halaman Produk tidak lengkap",
+    "Apa anda yakin ingin menyimpan spanduk": "Apa anda yakin ingin menyimpan spanduk?",
+    "Apa anda yakin ingin menghapus spanduk": "Apa anda yakin ingin menghapus spanduk?",
+    "Teks": "Teks",
+    "Masukkan Teks": "Masukkan Teks"
   },
   "LOGIN": {
     "Masuk Admin": "Masuk Admin",

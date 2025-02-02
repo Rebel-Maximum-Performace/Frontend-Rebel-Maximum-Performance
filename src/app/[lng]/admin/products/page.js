@@ -1,3 +1,4 @@
+'use client';
 import CheckAuthorizationAdmin from '@/views/CheckAuthorizationAdmin';
 import ProductAdminPageView from '@/views/ProductsAdmin';
 

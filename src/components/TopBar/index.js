@@ -16,7 +16,7 @@ const TopBar = ({ role, selectedMenu }) => {
     searchTopBar,
     products,
     setLoading,
-  } = useInitTopBar();
+  } = useInitTopBar({ isAdmin: role === 'Admin' });
 
   return role === 'User' ? (
     <>

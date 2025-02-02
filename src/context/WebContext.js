@@ -24,6 +24,7 @@ const WebContextProvider = ({ children }) => {
     message: '',
   });
   const onErrorMutation = (data) => {
+    setLoading(false);
     setErrorToast({
       open: true,
       message: data?.response?.data?.message,

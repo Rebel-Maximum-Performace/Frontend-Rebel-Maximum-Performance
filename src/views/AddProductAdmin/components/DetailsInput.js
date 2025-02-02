@@ -136,6 +136,8 @@ const DetailsInput = () => {
                       detailIndex={index}
                       itemIndex={i}
                       onChangeDetailItems={onChangeDetailItems}
+                      details={details}
+                      setDetails={setDetails}
                     />
                   }
                   {item.content &&
@@ -157,14 +159,16 @@ const DetailsInput = () => {
                     ))}
                 </div>
               </div>
-              {detail.columns === 1 && item.title !== 'Description' && (
-                <div
-                  className="lg:px-[5px] flex items-center justify-center rounded-full border border-primary-50 cursor-pointer"
-                  onClick={() => handleAddColumnDetails(index)}
-                >
-                  <FaPlus className="text-h5 text-primary-50" />
-                </div>
-              )}
+              {detail.columns === 1 &&
+                item.title !== 'Description' &&
+                item.type !== 'table' && (
+                  <div
+                    className="lg:px-[5px] flex items-center justify-center rounded-full border border-primary-50 cursor-pointer"
+                    onClick={() => handleAddColumnDetails(index)}
+                  >
+                    <FaPlus className="text-h5 text-primary-50" />
+                  </div>
+                )}
             </div>
           ))}
         </div>

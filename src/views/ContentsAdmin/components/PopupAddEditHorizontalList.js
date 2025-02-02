@@ -159,7 +159,7 @@ const PopupAddEditHorizontalList = ({
           onClick={onClose}
           className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
         >
-          Cancel
+          {t(`COMPONENT.Batal`)}
         </Button>
         <Button
           color="primary"
@@ -167,7 +167,7 @@ const PopupAddEditHorizontalList = ({
           onClick={() => onSave(dataForm)}
           className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
         >
-          Save
+          {t(`COMPONENT.Simpan`)}
         </Button>
       </div>
     </Popup>

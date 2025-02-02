@@ -249,9 +249,15 @@ const useInitCategoriesContent = () => {
   };
 
   // * USE EFFECT
-  useEffect(() => {
-    getAllCategories({ search: searchDebounce }, { onError: onErrorMutation });
-  }, [searchDebounce]);
+  useEffect(
+    () => () => {
+      getAllCategories(
+        { search: searchDebounce },
+        { onError: onErrorMutation },
+      );
+    },
+    [searchDebounce],
+  );
 
   return {
     t,

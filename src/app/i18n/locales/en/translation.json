@@ -23,7 +23,8 @@
     "Berhasil": "Success",
     "Berhasil Disimpan": "Successfully Saved",
     "Berhasil Dihapus": "Successfully Removed",
-    "Tidak ada data yang ditemukan": "No Data Found"
+    "Tidak ada data yang ditemukan": "No Data Found",
+    "Simpan Perubahan": "Save Changes"
   },
   "PRODUCTS": {
     "Urutkan Berdasarkan": "Sort By",
@@ -112,7 +113,17 @@
     "Pertanyaan harus diisi": "Question must be filled",
     "Jawaban harus diisi": "Answer must be filled",
     "Produk berhasil ditambahkan": "Product successfully added",
-    "Tambah Pertanyaan": "Add Question"
+    "Tambah Pertanyaan": "Add Question",
+    "Pertanyaan (ID)": "Question (ID)",
+    "Masukkan Pertanyaan (ID)": "Enter Question (ID)",
+    "Masukkan Jawaban (ID)": "Enter Answer (ID)",
+    "Pertanyaan (EN)": "Question (EN)",
+    "Masukkan Pertanyaan (EN)": "Enter Question (EN)",
+    "Masukkan Jawaban (EN)": "Enter Answer (EN)",
+    "Pertanyaan (ID) harus diisi": "Question (ID) must be filled",
+    "Jawaban (ID) harus diisi": "Answer (ID) must be filled",
+    "Pertanyaan (EN) harus diisi": "Question (EN) must be filled",
+    "Jawaban (EN) harus diisi": "Answer (EN) must be filled"
   },
   "HISTORIES_DETAIL": {
     "Dibuat": "Created",
@@ -145,7 +156,16 @@
     "Format file tidak valid": "File format is not valid"
   },
   "BANNER": {
-    "Mengarahkan Ke": "Redirect To"
+    "Mengarahkan Ke": "Redirect To",
+    "Terdapat file dengan format yang tidak valid": "There is a file with an invalid format",
+    "Terdapat file yang melebihi ukuran maksimal": "There are files that exceed the maximum size",
+    "Data Spanduk Utama tidak lengkap": "Main Banner data is incomplete",
+    "Data Spanduk Produk Baru / Spanduk Promo tidak lengkap": "New Product Banner / Promo Banner data is incomplete",
+    "Data Spanduk Halaman Produk tidak lengkap": "Product Page Banner data is incomplete",
+    "Apa anda yakin ingin menyimpan spanduk": "Are you sure want to save banner?",
+    "Apa anda yakin ingin menghapus spanduk": "Are you sure want to delete banner?",
+    "Teks": "Text",
+    "Masukkan Teks": "Enter Text"
   },
   "LOGIN": {
     "Masuk Admin": "Login Admin",

@@ -1,7 +1,7 @@
 'use client';
 import Loader from '@/components/Loader';
 import { useWebContext } from '@/context/WebContext';
-import { getLocalStorage } from '@/helpers/localStorage';
+import { decryptData } from '@/helpers/encryption';
 import { useRouter } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -15,13 +15,13 @@ const CheckAuthorizationAdmin = ({ children }) => {
 
   useEffect(() => {
     if (window.localStorage !== undefined) {
-      const accessTokenStorage = getLocalStorage('accessToken');
-      const csrfTokenStorage = getLocalStorage('csrfToken');
+      const accessTokenStorage = localStorage.getItem('accessToken');
+      const csrfTokenStorage = localStorage.getItem('csrfToken');
       const sssStorage = localStorage.getItem('SSS');
       if (
         !accessTokenStorage ||
         !csrfTokenStorage ||
-        sssStorage?.toString() === 'true'
+        (sssStorage && decryptData(sssStorage)?.toString() === 'true')
       ) {
         router.push('/admin/login');
       } else {

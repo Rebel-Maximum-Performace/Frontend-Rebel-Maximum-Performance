@@ -233,9 +233,12 @@ const useInitTableHorizontalList = () => {
     }
   };
 
-  useEffect(() => {
-    getAllHorizontalList(null, { onError: onErrorMutation });
-  }, []);
+  useEffect(
+    () => () => {
+      getAllHorizontalList(null, { onError: onErrorMutation });
+    },
+    [],
+  );
 
   return {
     t,

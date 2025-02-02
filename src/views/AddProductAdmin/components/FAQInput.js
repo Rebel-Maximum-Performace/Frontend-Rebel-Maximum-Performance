@@ -5,6 +5,7 @@ import { useWebContext } from '@/context/WebContext';
 import { Textarea } from '@headlessui/react';
 import { useState } from 'react';
 import FAQList from './FAQList';
+import { useTranslation } from '@/app/i18n/client';
 
 const FAQInput = () => {
   const { t } = useWebContext();
@@ -23,7 +24,7 @@ const FAQInput = () => {
   });
 
   const handleSaveQuestion = () => {
-    // TODO validasi
+    let isError = false;
     if (dataFAQ.questionId === '') {
       setErrorFields((prev) => ({
         ...prev,
@@ -32,6 +33,7 @@ const FAQInput = () => {
           message: t(`ADD_PRODUCT.Pertanyaan (ID) harus diisi`),
         },
       }));
+      isError = true;
     }
 
     if (dataFAQ.answerId === '') {
@@ -42,6 +44,7 @@ const FAQInput = () => {
           message: t(`ADD_PRODUCT.Jawaban (ID) harus diisi`),
         },
       }));
+      isError = true;
     }
 
     if (dataFAQ.questionEn === '') {
@@ -52,6 +55,7 @@ const FAQInput = () => {
           message: t(`ADD_PRODUCT.Pertanyaan (EN) harus diisi`),
         },
       }));
+      isError = true;
     }
 
     if (dataFAQ.answerEn === '') {
@@ -62,13 +66,10 @@ const FAQInput = () => {
           message: t(`ADD_PRODUCT.Jawaban (EN) harus diisi`),
         },
       }));
+      isError = true;
     }
 
-    const isFilled = Object.values(errorFields).every(
-      (field) => !field.isError,
-    );
-
-    if (isFilled) {
+    if (!isError) {
       setFaqs((prev) => [...prev, dataFAQ]);
       setDataFAQ({
         questionId: '',
@@ -100,8 +101,13 @@ const FAQInput = () => {
         FAQ ( Optional )
       </h3>
       <hr className="border-t-2 lg:border-t-4 border-primary-50 rounded-[15px]" />
-      <div className="mt-[5px] lg:mt-[10px] space-y-[10px] lg:space-y-[20px]">
-        <FAQList faqs={faqs} />
+      <div className="grid grid-cols-1 md:grid-cols-2 mt-[5px] lg:mt-[10px] gap-[20px]">
+        <div className="space-y-[10px] lg:space-y-[20px]">
+          <FAQList faqs={faqs} lang={'id'} />
+        </div>
+        <div className="space-y-[10px] lg:space-y-[20px]">
+          <FAQList faqs={faqs} lang={'en'} />
+        </div>
       </div>
       <div className="mt-[5px] lg:mt-[10px] space-y-[10px] lg:space-y-[20px]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
@@ -122,6 +128,7 @@ const FAQInput = () => {
               placeholder={t(`ADD_PRODUCT.Masukkan Jawaban (ID)`)}
               className="w-full h-[129px] rounded-[10px] lg:rounded-[15px] resize-none px-[10px] py-[5px] md:px-[15px] md:py-[10px] overflow-y-auto break-words font-helvetica_reguler text-bodySm lg:text-bodyBase border-2 border-netral-40 focus:border-netral-90 placeholder:font-helvetica_reguler outline-none placeholder:text-netral-50 disabled:bg-transparent inline-block"
               onChange={(e) => onChangeDataFAQ('answerId', e.target.value)}
+              value={dataFAQ.answerId}
             ></Textarea>
             {errorFields.answerId.isError && (
               <p className="text-primary-30 text-bodySm lg:text-bodyBase">
@@ -146,6 +153,7 @@ const FAQInput = () => {
               placeholder={t(`ADD_PRODUCT.Masukkan Jawaban (EN)`)}
               className="w-full h-[129px] rounded-[10px] lg:rounded-[15px] resize-none px-[10px] py-[5px] md:px-[15px] md:py-[10px] overflow-y-auto break-words font-helvetica_reguler text-bodySm lg:text-bodyBase border-2 border-netral-40 focus:border-netral-90 placeholder:font-helvetica_reguler outline-none placeholder:text-netral-50 disabled:bg-transparent inline-block"
               onChange={(e) => onChangeDataFAQ('answerEn', e.target.value)}
+              value={dataFAQ.answerEn}
             ></Textarea>
             {errorFields.answerEn.isError && (
               <p className="text-primary-30 text-bodySm lg:text-bodyBase">

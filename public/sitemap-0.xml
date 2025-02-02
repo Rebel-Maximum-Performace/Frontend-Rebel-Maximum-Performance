@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/categories</loc><lastmod>2025-01-23T18:26:05.147Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/categories</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/contents</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/contents</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/products</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/products</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/contact-us</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/contact-us</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/products/add</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/products/add</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/about-us</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/about-us</loc><lastmod>2025-01-23T18:26:05.151Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/login</loc><lastmod>2025-02-02T12:41:15.507Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/login</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/categories</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/categories</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/contact-us</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/contact-us</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/histories</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/histories</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/about-us</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/about-us</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/products</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/products</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/products</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/products</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/en/admin/products/add</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://rebelmaximumperformance-dev.vercel.app/id/admin/products/add</loc><lastmod>2025-02-02T12:41:15.509Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

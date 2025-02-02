@@ -96,44 +96,6 @@ export const useInitProductContent = () => {
     setLoading(true);
   };
 
-  // * USE EFFECT
-  useEffect(() => {
-    getAllProducts(
-      {
-        search: debounceSearch || '',
-        category: categoryQuery || '',
-        min: minQuery || 0,
-        max: maxQuery || 9999,
-        sortBy: getSortFilter(sortByQuery),
-        order: getOrderFilter(sortByQuery),
-        page: pageQuery || 1,
-        filters: JSON.parse(filterQuery) || [],
-      },
-      {
-        onError: onErrorMutation,
-      },
-    );
-  }, [
-    debounceSearch,
-    categoryQuery,
-    minQuery,
-    maxQuery,
-    sortByQuery,
-    pageQuery,
-    filterQuery,
-  ]);
-
-  useEffect(() => {
-    getAllCategories(
-      {
-        search: '',
-      },
-      { onError: onErrorMutation },
-    );
-
-    getAllAttributes(null, { onError: onErrorMutation });
-  }, []);
-
   useEffect(() => {
     setSearchQuery(searchQuery || '');
     setCategoryQuery(categoryQuery);
@@ -143,6 +105,50 @@ export const useInitProductContent = () => {
     setPageQuery(pageQuery || 1);
     setFilterQuery(filterQuery || JSON.stringify([]));
   }, []);
+
+  // * USE EFFECT
+  useEffect(
+    () => () => {
+      getAllProducts(
+        {
+          search: debounceSearch || '',
+          category: categoryQuery || '',
+          min: minQuery || 0,
+          max: maxQuery || 9999,
+          sortBy: getSortFilter(sortByQuery),
+          order: getOrderFilter(sortByQuery),
+          page: pageQuery || 1,
+          filters: JSON.parse(filterQuery) || [],
+        },
+        {
+          onError: onErrorMutation,
+        },
+      );
+    },
+    [
+      debounceSearch,
+      categoryQuery,
+      minQuery,
+      maxQuery,
+      sortByQuery,
+      pageQuery,
+      filterQuery,
+    ],
+  );
+
+  useEffect(
+    () => () => {
+      getAllCategories(
+        {
+          search: '',
+        },
+        { onError: onErrorMutation },
+      );
+
+      getAllAttributes(null, { onError: onErrorMutation });
+    },
+    [],
+  );
 
   return {
     t,

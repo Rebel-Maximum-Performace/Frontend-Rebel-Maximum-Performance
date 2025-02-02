@@ -5,7 +5,7 @@ import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-const useInitTopBar = () => {
+const useInitTopBar = ({ isAdmin }) => {
   // * VARIABLE & CONTEXT
   const {
     setLoading,
@@ -43,7 +43,7 @@ const useInitTopBar = () => {
 
   // * USE EFFECT
   useEffect(() => {
-    if (!responseCategories) {
+    if (!responseCategories && !isAdmin) {
       getAllCategories(
         {
           search: '',

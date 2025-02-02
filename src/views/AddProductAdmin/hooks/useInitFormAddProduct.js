@@ -121,7 +121,7 @@ const useInitFormAddProduct = () => {
       }
       datas.push(file);
     });
-    imageRef.current.value = '';
+    event.target.value = '';
     setImages([...images, ...datas]);
   };
   const handleRemoveCategory = (index) => {

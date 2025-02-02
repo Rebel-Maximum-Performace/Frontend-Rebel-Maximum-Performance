@@ -1,8 +1,9 @@
-import { useTranslation } from '@/app/i18n/client';
-import { useParams } from 'next/navigation';
+import { useWebContext } from '@/context/WebContext';
+import useDebounce from '@/hooks/useDebounce';
 import { useEffect, useState } from 'react';
 
 const useInitTableDetailsInput = ({ data }) => {
+  const { t } = useWebContext();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState({
     sortBy: 0,
@@ -11,36 +12,43 @@ const useInitTableDetailsInput = ({ data }) => {
   });
   const [listFilter, setListFilter] = useState([]);
   const [popupFilter, setPopupFilter] = useState(false);
-  const [dataFiltered, setDataFiltered] = useState([]);
-  const { lng } = useParams();
-  const { t } = useTranslation(lng, 'translation');
+  const [dataFiltered, setDataFiltered] = useState(null);
   const [sortByList, setSortByList] = useState([]);
   const orderList = [
     { label: 'A-Z', value: 'asc' },
     { label: 'Z-A', value: 'desc' },
   ];
 
-  useEffect(() => {
-    if (
-      data.headers.some((item) => item.label !== '') &&
-      data.headers.some((header) =>
-        data.contents.some((item) => item[header.label] !== ''),
-      )
-    ) {
-      setSortByList(
-        data.headers?.map((header, index) => ({
-          label: header.label,
-          value: index,
-        })),
-      );
-      setListFilter(
-        data.headers?.map((header) => ({
-          key: header.label,
-          values: data.contents?.map((content) => content[header.label]),
-        })),
-      );
-    }
-  }, [data]);
+  const debounceData = useDebounce(data, 1000);
+
+  useEffect(
+    () => () => {
+      if (
+        data.headers.some((item) => item.label !== '') &&
+        data.headers.some((header) =>
+          data.contents.some((item) => item[header.label] !== ''),
+        )
+      ) {
+        setSortByList(
+          data.headers?.map((header, index) => ({
+            label: header.label,
+            value: index,
+          })),
+        );
+        setListFilter(
+          data.headers?.map((header) => ({
+            key: header.label,
+            values: data.contents?.map((content) => content[header.label]),
+          })),
+        );
+        setFilter({
+          ...filter,
+          filters: data.headers.map((hd) => ({ key: hd.label, values: [] })),
+        });
+      }
+    },
+    [debounceData],
+  );
 
   const onSearch = (e) => {
     setSearch(e.target.value);
@@ -60,6 +68,15 @@ const useInitTableDetailsInput = ({ data }) => {
     });
   };
 
+  const onApplyFilter = () => {
+    const filteringData = data.contents.filter((item) => {
+      return filter.filters.includes(item);
+    });
+
+    setDataFiltered(filteringData);
+    setPopupFilter(false);
+  };
+
   return {
     search,
     onSearch,
@@ -69,11 +86,11 @@ const useInitTableDetailsInput = ({ data }) => {
     onChangeFilter,
     sortByList,
     orderList,
-    lng,
     listFilter,
     onChangeListFilter,
     popupFilter,
     setPopupFilter,
+    onApplyFilter,
   };
 };
 

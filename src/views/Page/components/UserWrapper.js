@@ -1,13 +1,12 @@
 'use client';
-import React, { Suspense, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { publicAPI } from '@/api/endpoints';
 import Loader from '@/components/Loader';
 import { useWebContext } from '@/context/WebContext';
-import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { toast, ToastContainer } from 'react-toastify';
+import { encryptData } from '@/helpers/encryption';
 
 const UserWrapper = ({ children }) => {
   const { mutate } = useMutation({
@@ -18,25 +17,23 @@ const UserWrapper = ({ children }) => {
   const { setLoading, errorToast, loading, setErrorToast } = useWebContext();
 
   useEffect(() => {
-    if (window.localStorage !== undefined) {
-      const accessTokenStorage = getLocalStorage('accessToken');
-      const csrfTokenStorage = getLocalStorage('csrfToken');
-      if (!accessTokenStorage || !csrfTokenStorage) {
-        mutate('', {
-          onSuccess: (data) => {
-            const csrfToken = data.headers.get('X-CSRF-Token');
-            const accessToken = data.headers.get('Authorization');
-            const sss = data.headers.get('SSS');
-            setLocalStorage('csrfToken', csrfToken);
-            setLocalStorage('accessToken', accessToken);
-            localStorage.setItem('SSS', sss);
-            window.location.reload();
-          },
-        });
-      } else {
-        setAccessToken(accessTokenStorage);
-        setCsrfToken(csrfTokenStorage);
-      }
+    const accessTokenStorage = localStorage.getItem('accessToken');
+    const csrfTokenStorage = localStorage.getItem('csrfToken');
+    if (!accessTokenStorage || !csrfTokenStorage) {
+      mutate('', {
+        onSuccess: (data) => {
+          const csrfTokenResp = data.headers.get('X-CSRF-Token');
+          const accessTokenResp = data.headers.get('Authorization');
+          const sss = data.headers.get('SSS');
+          localStorage.setItem('csrfToken', encryptData(csrfTokenResp));
+          localStorage.setItem('accessToken', encryptData(accessTokenResp));
+          localStorage.setItem('SSS', encryptData(sss));
+          window.location.reload();
+        },
+      });
+    } else {
+      setAccessToken(accessTokenStorage);
+      setCsrfToken(csrfTokenStorage);
     }
     setLoading(false);
   }, []);
@@ -60,7 +57,7 @@ const UserWrapper = ({ children }) => {
     return (
       <>
         <Loader isLoading={loading} />
-        <Suspense>{children}</Suspense>
+        {children}
         <ToastContainer />
       </>
     );

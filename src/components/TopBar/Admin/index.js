@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import Logo from '@/assets/img/logo rebel.webp';
 import PropTypes from 'prop-types';
@@ -11,7 +11,6 @@ import Button from '../../Button';
 import Link from 'next/link';
 import { useWebContext } from '@/context/WebContext';
 import DropDownLanguage from '../components/DropdownLanguage';
-import { removeLocalStorage } from '@/helpers/localStorage';
 import { useRouter } from 'next/navigation';
 
 const TopBarAdmin = ({
@@ -49,12 +48,12 @@ const TopBarAdmin = ({
     setOpenDrawer(!openDrawer);
   };
 
-  const onLogout = () => {
-    removeLocalStorage('accessToken');
-    removeLocalStorage('csrfToken');
+  const onLogout = useCallback(() => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('csrfToken');
     router.push('/admin/login');
     setLoading(true);
-  };
+  }, []);
 
   return (
     <>

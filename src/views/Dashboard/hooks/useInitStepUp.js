@@ -1,24 +1,30 @@
 import { useWebContext } from '@/context/WebContext';
-import { getLocalStorage, setLocalStorage } from '@/helpers/localStorage';
-import { useEffect } from 'react';
+import { decryptData, encryptData } from '@/helpers/encryption';
+import { useEffect, useState } from 'react';
 
 const useInitStepUp = () => {
-  const doneStep = getLocalStorage('doneStep');
   const { setLoading } = useWebContext();
+  const [doneStep, setDoneStep] = useState({
+    categories: false,
+    products: false,
+    contents: false,
+    horizontalList: false,
+  });
 
   useEffect(() => {
-    if (!doneStep) {
-      setLocalStorage('doneStep', {
-        categories: false,
-        products: false,
-        contents: false,
-        horizontalList: false,
-      });
+    const doneStepStorage = localStorage.getItem('doneStep');
+    if (!doneStepStorage) {
+      localStorage.setItem('doneStep', encryptData(doneStep));
+    } else {
+      setDoneStep(doneStepStorage);
     }
   }, []);
 
   const onClickStep = (step) => {
-    setLocalStorage('doneStep', { ...doneStep, [step]: true });
+    localStorage.setItem(
+      'doneStep',
+      encryptData({ ...doneStep, [step]: true }),
+    );
   };
 
   return { doneStep, onClickStep, setLoading };

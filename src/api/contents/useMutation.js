@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import {
+  serviceAddBanner,
   serviceAddHorizontalList,
+  serviceEditBanner,
   serviceEditHorizontalList,
   serviceGetAllBanners,
   serviceGetAllHorizontalList,
@@ -44,6 +46,22 @@ export const useEditHorizontalList = ({ onError, onSuccess }) => {
 export const useRemoveHorizontalList = ({ onError, onSuccess }) => {
   return useMutation({
     mutationFn: serviceRemoveHorizontalList,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useAddBanner = ({ onError, onSuccess }) => {
+  return useMutation({
+    mutationFn: serviceAddBanner,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useEditBanner = ({ onError, onSuccess }) => {
+  return useMutation({
+    mutationFn: serviceEditBanner,
     onError,
     onSuccess,
   });

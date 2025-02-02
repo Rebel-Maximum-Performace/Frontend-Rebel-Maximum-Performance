@@ -2,53 +2,50 @@
 import { FaImage, FaTrash } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { useEffect, useRef, useState } from 'react';
 import TextInput from '@/components/Form/TextInput';
 import Select from '@/components/Form/Select';
 import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr';
+import Image from 'next/image';
+import useInitBannerInput from '../hooks/useInitBannerInput';
+import Popup from '@/components/Popup';
+import Button from '@/components/Button';
 
 const BannerInput = ({
-  t,
   title,
-  onChangeImage,
+  type,
   banners = [],
-  onChangeDetail,
   rules,
   isSingle = false,
+  setDataForm,
+  dataForm,
+  defaultActiveBanner,
+  setRemoveImages,
 }) => {
-  const swiperRef = useRef(null);
-  const [activeBanner, setActiveBanner] = useState(
-    banners.length > 0
-      ? {
-          index: 0,
-          image: banners[0].image,
-          text: banners[0].text,
-          link: banners[0].link,
-        }
-      : { isInput: true },
-  );
-
-  useEffect(() => {
-    if (banners?.filter((item) => !item.isInput).length > 0) {
-      const lastIndex = banners.length - 1;
-      swiperRef.current?.slideTo(lastIndex);
-    }
-  }, [banners]);
-
-  const handleChangeActiveBanner = (swiper) => {
-    const selectedData = banners.find(
-      (_, index) => index === swiper.activeIndex,
-    );
-    if (selectedData) {
-      setActiveBanner({ ...selectedData, index: swiper.activeIndex });
-    } else {
-      setActiveBanner({ isInput: true });
-    }
-  };
+  const {
+    t,
+    swiperRef,
+    activeBanner,
+    handleChangeActiveBanner,
+    onChangeImage,
+    onChangeDetail,
+    onDeleteBanner,
+    onChangeOrder,
+    getWidthBanner,
+    popupDeleteConfirmation,
+    onClosePopup,
+    handleDeleteBanner,
+  } = useInitBannerInput({
+    type,
+    setDataForm,
+    dataForm,
+    banners,
+    defaultActiveBanner,
+    setRemoveImages,
+  });
 
   return (
     <div className="mb-[20px]">
-      <h3 className="text-bodyMd lg:text-h3 font-helvetica_bold mb-[10px]">
+      <h3 className="text-bodyMd md:text-h3 font-helvetica_bold mb-[10px]">
         {title}
       </h3>
 
@@ -65,64 +62,92 @@ const BannerInput = ({
           {banners?.map((banner, index) => (
             <SwiperSlide key={index}>
               {banner.isInput ? (
-                <label
-                  htmlFor="images"
-                  className="cursor-pointer border-4 text-netral-40 font-helvetica_regular border-netral-40 border-dashed w-[90px] h-[90px] md:w-[100px] md:h-[100px] lg:w-[683px] lg:h-[289px] flex flex-col justify-center items-center rounded-[10px] lg:rounded-[15px] hover:bg-secondary-10/30"
+                <div
+                  className={`relative w-full max-w-[1080px] mx-auto ${getWidthBanner(
+                    type,
+                  )}`}
                 >
-                  <FaImage className="text-[18px] lg:text-[50px]" />
-                  <p className="text-bodyBase lg:text-h5">
-                    {t(`CONTENTS.Unggah / Letakkan Di Sini`)}
-                  </p>
-                  <input
-                    name="images"
-                    id="images"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => onChangeImage(e, index)}
-                  />
-                </label>
+                  <label
+                    htmlFor={`Input-${type}`}
+                    className={`w-full h-full absolute top-0 cursor-pointer border-4 text-netral-40 font-helvetica_regular border-netral-40 border-dashed flex flex-col justify-center items-center rounded-[10px] lg:rounded-[15px] hover:bg-secondary-10/30`}
+                  >
+                    <FaImage className="relative text-[18px] md:text-[50px]" />
+                    {activeBanner.isError ? (
+                      <p className="text-bodySm md:text-h5 text-center text-primary-50">
+                        {activeBanner.message}
+                      </p>
+                    ) : (
+                      <p className="text-bodyBase md:text-h5">
+                        {t(`CONTENTS.Unggah / Letakkan Di Sini`)}
+                      </p>
+                    )}
+                    <input
+                      name={`Input-${type}`}
+                      id={`Input-${type}`}
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => onChangeImage(e, index)}
+                    />
+                  </label>
+                </div>
               ) : (
                 <div
-                  className="w-[90px] h-[90px] md:w-[100px] md:h-[100px] lg:w-[683px] lg:h-[289px] relative bg-cover bg-center cursor-pointer"
-                  style={{ backgroundImage: `url(${banner.image})` }}
-                />
+                  className={`relative w-full max-w-[1080px] mx-auto ${getWidthBanner(
+                    type,
+                  )}`}
+                >
+                  <Image
+                    src={
+                      typeof banner.image === 'string'
+                        ? banner.image
+                        : URL.createObjectURL(banner.image)
+                    }
+                    alt={`banner-${index}`}
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                  />
+                </div>
               )}
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      {rules?.map((rule, i) => (
-        <p
-          className="text-bodySm font-helvetica_regular lg:text-bodyBase text-primary-50"
-          key={i}
-        >
-          {rule}
-        </p>
-      ))}
+      {activeBanner.isInput &&
+        rules?.map((rule, i) => (
+          <p
+            className="text-bodySm font-helvetica_regular lg:text-bodyBase text-primary-50"
+            key={i}
+          >
+            {rule}
+          </p>
+        ))}
       {banners?.filter((banner) => !banner.isInput).length > 0 && (
-        <div className="flex lg:space-x-[20px] mt-[10px]">
-          <TextInput
-            name="title"
-            label={t(`CONTENTS.Judul`)}
-            onChange={(e) =>
-              onChangeDetail({ ...activeBanner, title: e.target.value })
-            }
-            value={activeBanner?.title || ''}
-            isRequired
-          />
-          <TextInput
-            name="link"
-            label={t(`BANNER.Mengarahkan Ke`)}
-            onChange={(e) =>
-              onChangeDetail({ ...activeBanner, link: e.target.value })
-            }
-            value={activeBanner?.link || ''}
-            isRequired
-          />
-          <div className="flex items-center lg:space-x-[10px]">
-            {!isSingle && (
+        <div className="flex flex-col md:flex-row md:space-x-[20px] space-y-[15px] md:space-y-0 mt-[10px]">
+          {!activeBanner.isInput && type !== 'productPageBanner' && (
+            <TextInput
+              name="text"
+              label={t(`BANNER.Teks`)}
+              placeholder={t(`BANNER.Masukkan Teks`)}
+              onChange={(e) => onChangeDetail('text', e.target.value)}
+              value={activeBanner?.text || ''}
+              isRequired
+            />
+          )}
+          {!activeBanner.isInput && type !== 'productPageBanner' && (
+            <TextInput
+              name="link"
+              label={t(`BANNER.Mengarahkan Ke`)}
+              placeholder={t(`CONTENTS.Masukkan Link`)}
+              onChange={(e) => onChangeDetail('link', e.target.value)}
+              value={activeBanner?.link || ''}
+              isRequired
+            />
+          )}
+          <div className="flex items-center space-x-[30px] md:space-x-[20px]">
+            {!isSingle && !activeBanner.isInput && (
               <div className="flex flex-col space-y-[5px] w-full h-full">
                 <label
                   className={`font-helvetica-regular text-netral-90 text-labelSm md:text-labelBase`}
@@ -131,31 +156,43 @@ const BannerInput = ({
                   <span className="text-primary-50">*</span>
                 </label>
                 <Select
-                  selected={activeBanner?.order}
+                  selected={activeBanner?.order?.toString()}
                   options={Array.from(
-                    { length: banners.length },
-                    (_, i) => i + 1,
+                    { length: banners.filter((b) => !b.isInput).length },
+                    (_, i) => ({
+                      label: (i + 1).toString(),
+                      value: (i + 1).toString(),
+                    }),
                   )}
                   placeholder="1"
-                  onChange={(value) =>
-                    onChangeDetail({ ...activeBanner, order: value })
-                  }
+                  onChange={onChangeOrder}
                 />
               </div>
             )}
 
-            <FaTrash
-              className={`text-primary-50 text-[24px] ${
-                isSingle ? 'lg:text-[24px]' : 'lg:text-[50px]'
-              } cursor-pointer`}
-            />
+            {!activeBanner.isInput && (
+              <FaTrash
+                className={`text-primary-50 ${
+                  isSingle
+                    ? 'text-[20px] md:text-[24px]'
+                    : 'text-[30px] md:text-[50px]'
+                } cursor-pointer`}
+                onClick={onDeleteBanner}
+              />
+            )}
 
             {!isSingle && (
               <div className="flex space-x-[10px] items-center">
-                <div className="bg-primary-50 p-[5px] rounded-full hidden lg:block cursor-pointer">
+                <div
+                  className="bg-primary-50 p-[5px] rounded-full lg:block cursor-pointer"
+                  onClick={() => swiperRef.current?.slidePrev()}
+                >
                   <GrLinkPrevious className="text-[24px] md:text-[30px] text-netral-10" />
                 </div>
-                <div className="bg-primary-50 p-[5px] rounded-full hidden lg:block cursor-pointer">
+                <div
+                  className="bg-primary-50 p-[5px] rounded-full lg:block cursor-pointer"
+                  onClick={() => swiperRef.current?.slideNext()}
+                >
                   <GrLinkNext className="text-[24px] md:text-[30px] text-netral-10" />
                 </div>
               </div>
@@ -163,6 +200,38 @@ const BannerInput = ({
           </div>
         </div>
       )}
+
+      {/* ===== POPUP CONFIRMATION ===== */}
+      <Popup
+        open={popupDeleteConfirmation}
+        onClose={onClosePopup}
+        width="420px"
+      >
+        <h5 className="text-labelMd lg:text-h5 text-primary-50 text-center mb-[15px] lg:mb-[30px]">
+          {t(`COMPONENT.Peringatan`)}
+        </h5>
+        <p className="text-labelMd lg:text-h5 text-center">
+          {t(`BANNER.Apa anda yakin ingin menghapus spanduk`)}
+        </p>
+        <div className="flex justify-between items-center w-full mt-[15px] lg:mt-[30px]">
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={onClosePopup}
+            className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
+          >
+            {t(`COMPONENT.Batal`)}
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleDeleteBanner}
+            className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
+          >
+            {t(`ADD_PRODUCT.Hapus`)}
+          </Button>
+        </div>
+      </Popup>
     </div>
   );
 };

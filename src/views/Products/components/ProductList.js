@@ -137,7 +137,7 @@ const ProductList = ({ categoryList, attributes }) => {
                         {product.name}
                       </h3>
                       <h4 className="font-helvetica_bold text-bodySm lg:text-bodyBase text-netral-90">
-                        {product.id}
+                        {product.sku}
                       </h4>
                       <h4 className="font-helvetica_regular h-[30px] lg:h-[42px] text-bodyXs lg:text-bodyMd text-secondary-80 text-ellipsis overflow-hidden whitespace-pre-line line-clamp-2 w-full">
                         {arrayCategoryToString(product.categories)}

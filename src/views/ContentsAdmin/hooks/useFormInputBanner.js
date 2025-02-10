@@ -204,40 +204,37 @@ const useFormInputBanner = () => {
     }
   };
 
-  useEffect(
-    () => () => {
-      getAllBanners(null, {
-        onError: onErrorMutation,
-        onSuccess: (data) => {
-          setDataForm({
-            mainBanner: data?.data?.data?.mainBanner || [],
-            promotionBanner: data?.data?.data?.promotionBanner
-              ? [data?.data?.data?.promotionBanner]
-              : [],
-            productPageBanner: data?.data?.data?.productPageBanner || [],
-          });
-          setDefaultActiveBanner({
-            mainBanner: data?.data?.data?.mainBanner[0]
-              ? { ...data?.data?.data?.mainBanner[0], index: 0 }
-              : null,
-            promotionBanner: data?.data?.data?.promotionBanner
-              ? {
-                  ...data?.data?.data?.promotionBanner,
-                  index: 0,
-                }
-              : null,
-            productPageBanner: data?.data?.data?.productPageBanner[0]
-              ? {
-                  ...data?.data?.data?.productPageBanner[0],
-                  index: 0,
-                }
-              : null,
-          });
-        },
-      });
-    },
-    [],
-  );
+  useEffect(() => {
+    getAllBanners(null, {
+      onError: onErrorMutation,
+      onSuccess: (data) => {
+        setDataForm({
+          mainBanner: data?.data?.data?.mainBanner || [],
+          promotionBanner: data?.data?.data?.promotionBanner
+            ? [data?.data?.data?.promotionBanner]
+            : [],
+          productPageBanner: data?.data?.data?.productPageBanner || [],
+        });
+        setDefaultActiveBanner({
+          mainBanner: data?.data?.data?.mainBanner[0]
+            ? { ...data?.data?.data?.mainBanner[0], index: 0 }
+            : null,
+          promotionBanner: data?.data?.data?.promotionBanner
+            ? {
+                ...data?.data?.data?.promotionBanner,
+                index: 0,
+              }
+            : null,
+          productPageBanner: data?.data?.data?.productPageBanner[0]
+            ? {
+                ...data?.data?.data?.productPageBanner[0],
+                index: 0,
+              }
+            : null,
+        });
+      },
+    });
+  }, []);
 
   return {
     t,

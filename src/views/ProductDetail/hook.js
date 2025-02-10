@@ -10,7 +10,7 @@ export const useInitDetailsData = () => {
     switch (type) {
       case 'text':
         return (
-          <p className="font-helvetica_regular text-bodySm lg:text-bodyBase text-netral-90 text-justify mt-[5px] lg:mt-[10px]">
+          <p className="font-helvetica_regular text-bodySm lg:text-bodyBase text-netral-90 text-justify mt-[5px] lg:mt-[10px] whitespace-pre-line">
             {columnData.content}
           </p>
         );

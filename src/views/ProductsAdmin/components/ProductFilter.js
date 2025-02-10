@@ -3,6 +3,7 @@ import Select from '@/components/Form/Select';
 import TextInput from '@/components/Form/TextInput';
 import Popup from '@/components/Popup';
 import AttributeCheckboxGroup from '@/views/Products/components/AttributeCheckboxGroup';
+import { useEffect, useState } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
 const ProductFilter = ({
@@ -18,8 +19,34 @@ const ProductFilter = ({
   maxQuery,
   categoryQuery,
   filterQuery,
-  onApply,
 }) => {
+  const [dataFilter, setDataFilter] = useState({
+    sortBy: sortByQuery,
+    category: categoryQuery,
+    min: minQuery,
+    max: maxQuery,
+    filter: filterQuery,
+  });
+
+  useEffect(() => {
+    setDataFilter({
+      sortBy: sortByQuery,
+      category: categoryQuery,
+      min: minQuery,
+      max: maxQuery,
+      filter: filterQuery,
+    });
+  }, [sortByQuery, categoryQuery, minQuery, maxQuery, filterQuery]);
+
+  const onApply = () => {
+    onChangeQueryState('sortBy', dataFilter.sortBy);
+    onChangeQueryState('category', dataFilter.category);
+    onChangeQueryState('min', dataFilter.min);
+    onChangeQueryState('max', dataFilter.max);
+    onChangeQueryState('filter', dataFilter.filter);
+    onClose();
+  };
+
   return (
     <>
       <Popup open={open} onClose={onClose} className="w-[100%]">
@@ -28,10 +55,12 @@ const ProductFilter = ({
             {t('PRODUCTS.Urutkan Berdasarkan')} :
           </h3>
           <Select
-            selected={sortByQuery}
+            selected={dataFilter.sortBy}
             options={sortByList}
             placeholder={t('HOMEPAGE.Pilih Kategori')}
-            onChange={(value) => onChangeQueryState('sortBy', value)}
+            onChange={(value) =>
+              setDataFilter({ ...dataFilter, sortBy: value })
+            }
           />
         </div>
         <div className="w-full mb-[15px] lg:mb-[20px]">
@@ -46,8 +75,10 @@ const ProductFilter = ({
               <TextInput
                 name="minPrice"
                 placeholder="0"
-                onChange={(e) => onChangeQueryState('min', e.target.value)}
-                value={minQuery}
+                onChange={(e) =>
+                  setDataFilter({ ...dataFilter, min: e.target.value })
+                }
+                value={dataFilter.min}
                 iconLeft={
                   <MdOutlineAttachMoney className="text-[18px] md:text-[24px] text-primary-50" />
                 }
@@ -61,8 +92,10 @@ const ProductFilter = ({
               <TextInput
                 name="maxPrice"
                 placeholder="0"
-                onChange={(e) => onChangeQueryState('max', e.target.value)}
-                value={maxQuery}
+                onChange={(e) =>
+                  setDataFilter({ ...dataFilter, max: e.target.value })
+                }
+                value={dataFilter.max}
                 iconLeft={
                   <MdOutlineAttachMoney className="text-[18px] md:text-[24px] text-primary-50" />
                 }
@@ -77,17 +110,23 @@ const ProductFilter = ({
           </h3>
           <div className="w-full mb-[5px] lg:mb-[10px] lg:hidden">
             <Select
-              selected={categoryQuery}
+              selected={dataFilter.category}
               options={categoryList}
               placeholder={t('PRODUCTS.Semua Kategori')}
               isSearchable
-              onChange={(value) => onChangeQueryState('category', value)}
+              onChange={(value) =>
+                setDataFilter({ ...dataFilter, category: value })
+              }
             />
           </div>
           <AttributeCheckboxGroup
             attributes={attributes}
-            filterQuery={filterQuery}
-            onChangeQueryState={onChangeQueryState}
+            filterQuery={dataFilter.filter}
+            onChangeQueryState={(key, value) =>
+              key === 'filter'
+                ? setDataFilter({ ...dataFilter, filter: value })
+                : () => {}
+            }
           />
           <div className="w-full flex justify-between mt-[30px]">
             <Button

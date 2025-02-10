@@ -17,7 +17,6 @@ const ProductContent = () => {
     sortByList,
     onClickFilter,
     onSearch,
-    searchQuery,
     products,
     categories,
     attributes,
@@ -29,6 +28,8 @@ const ProductContent = () => {
     sortByQuery,
     filterQuery,
     setLoading,
+    search,
+    setSearch,
   } = useInitProductContent();
 
   return (
@@ -82,10 +83,13 @@ const ProductContent = () => {
           <TextInput
             name="search"
             placeholder={`${t('COMPONENT.Cari')}...`}
-            onChange={onSearch}
-            value={searchQuery}
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
             iconRight={
-              <FaSearch className="text-[18px] md:text-[24px] text-primary-50" />
+              <FaSearch
+                className="text-[18px] md:text-[24px] text-primary-50"
+                onClick={() => onSearch(search)}
+              />
             }
             className="w-full"
           />
@@ -121,7 +125,6 @@ const ProductContent = () => {
         maxQuery={maxQuery}
         categoryQuery={categoryQuery}
         filterQuery={filterQuery ? JSON.parse(filterQuery) : []}
-        onApply={() => {}}
       />
 
       <ProductList

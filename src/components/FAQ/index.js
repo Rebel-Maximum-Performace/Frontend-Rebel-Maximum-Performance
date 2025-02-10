@@ -36,7 +36,7 @@ const FAQ = ({ faqs }) => {
         </div>
       </div>
       {openList.includes(index) && (
-        <p className="font-helvetica_regular text-bodyXs md:text-bodySm lg:text-bodyBase mt-[5px] lg:mt-[10px]">
+        <p className="font-helvetica_regular text-bodyXs md:text-bodySm lg:text-bodyBase mt-[5px] lg:mt-[10px] whitespace-pre-line">
           {lng === 'id' ? faq.answerId : faq.answerEn}
         </p>
       )}

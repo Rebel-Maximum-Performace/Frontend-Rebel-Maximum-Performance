@@ -3,6 +3,7 @@ import { useGetAllCategories } from '@/api/categories/useMutation';
 import {
   useGetAllAttributes,
   useGetAllProducts,
+  useRemoveProduct,
 } from '@/api/products/useMutations';
 import { useWebContext } from '@/context/WebContext';
 import { getOrderFilter, getSortFilter } from '@/helpers';
@@ -28,6 +29,8 @@ export const useInitProductContent = () => {
     setFilterQuery,
     onErrorMutation,
     contentRef,
+    setProductId,
+    productId,
   } = useWebContext();
   const [search, setSearch] = useState(searchQuery || '');
   const [page, setPage] = useState(1);
@@ -42,6 +45,11 @@ export const useInitProductContent = () => {
   // * LOCAL STATE
   const [openPopupFilter, setOpenPopupFilter] = useState(false);
   const [isStopScroll, setIsStopScroll] = useState(false);
+  const [popupConfirm, setPopupConfirm] = useState({
+    isOpen: false,
+    type: '',
+    message: '',
+  });
 
   // * QUERY
   const { isLoading, mutate: getAllProducts } = useGetAllProducts();
@@ -49,6 +57,7 @@ export const useInitProductContent = () => {
     useGetAllCategories();
   const { data: responseAttributes, mutate: getAllAttributes } =
     useGetAllAttributes();
+  const { mutate: remove } = useRemoveProduct();
 
   // * FUNCTIONS
   const onSearch = (value) => {
@@ -117,6 +126,78 @@ export const useInitProductContent = () => {
         },
       },
     );
+  };
+
+  const onDetail = (dataProduct) => {
+    router.push(
+      `/admin/products/${dataProduct.name
+        ?.replaceAll('/', '-')
+        ?.replaceAll(' ', '-')}=${dataProduct.id}`,
+    );
+    setLoading(true);
+  };
+
+  const onEdit = (dataProduct) => {
+    router.push(`/admin/products/edit`);
+    setProductId(dataProduct.id);
+    setLoading(true);
+  };
+
+  const onRemove = (dataProduct) => {
+    setProductId(dataProduct.id);
+    setPopupConfirm({
+      isOpen: true,
+      type: 'warning',
+      message: t(`COMPONENT.Apa anda yakin ingin menghapus`),
+    });
+  };
+
+  const handleDeleteProduct = () => {
+    remove(
+      { id: productId },
+      {
+        onError: onErrorMutation,
+        onSuccess: () => {
+          setPopupConfirm({
+            isOpen: true,
+            type: 'success',
+            message: t(`COMPONENT.Berhasil Dihapus`),
+          });
+        },
+      },
+    );
+  };
+
+  const onClosePopup = () => {
+    setPopupConfirm({
+      isOpen: false,
+      type: '',
+      message: '',
+    });
+    if (popupConfirm.type === 'success') {
+      getAllProducts(
+        {
+          search: searchQuery || '',
+          category: categoryQuery || '',
+          min: minQuery || 0,
+          max: maxQuery || 9999,
+          sortBy: getSortFilter(sortByQuery),
+          order: getOrderFilter(sortByQuery),
+          page: 1,
+          filters:
+            JSON.parse(filterQuery)?.map((item) => ({
+              attribute: item.key,
+              values: item.values,
+            })) || [],
+        },
+        {
+          onError: onErrorMutation,
+          onSuccess: (data) => {
+            setProducts(data?.data?.data);
+          },
+        },
+      );
+    }
   };
 
   useEffect(() => {
@@ -210,5 +291,11 @@ export const useInitProductContent = () => {
     setLoading,
     search,
     setSearch,
+    onDetail,
+    onEdit,
+    onRemove,
+    onClosePopup,
+    handleDeleteProduct,
+    popupConfirm,
   };
 };

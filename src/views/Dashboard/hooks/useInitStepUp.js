@@ -16,7 +16,7 @@ const useInitStepUp = () => {
     if (!doneStepStorage) {
       localStorage.setItem('doneStep', encryptData(doneStep));
     } else {
-      setDoneStep(doneStepStorage);
+      setDoneStep(decryptData(doneStepStorage));
     }
   }, []);
 

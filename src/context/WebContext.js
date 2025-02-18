@@ -31,6 +31,7 @@ const WebContextProvider = ({ children }) => {
       message: data?.response?.data?.message,
     });
   };
+  const [productId, setProductId] = useState(null);
 
   return (
     <WebContext.Provider
@@ -60,6 +61,8 @@ const WebContextProvider = ({ children }) => {
         categoryTopBar,
         setCategoryTopBar,
         contentRef,
+        productId,
+        setProductId,
       }}
     >
       {children}

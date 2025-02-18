@@ -10,7 +10,7 @@ import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 
 const FAQList = ({ faqs, lang }) => {
   const { t } = useWebContext();
-  const { setFaqs } = useProductContext();
+  const { setFaqs, setRemovedFaqs } = useProductContext();
   const [openList, setOpenList] = useState([]);
   const [popupEdit, setPopupEdit] = useState(false);
   const [selectedFaq, setSelectedFaq] = useState(null);
@@ -104,12 +104,18 @@ const FAQList = ({ faqs, lang }) => {
     if (!isError) {
       setFaqs((prev) => {
         const newFaqs = [...prev];
+
+        if (faqs[selectedFaq]?.id) {
+          newFaqs[selectedFaq].isUpdated = true;
+        }
+
         newFaqs[selectedFaq].questionId = dataFAQ.questionId;
         newFaqs[selectedFaq].questionEn = dataFAQ.questionEn;
         newFaqs[selectedFaq].answerId = dataFAQ.answerId;
         newFaqs[selectedFaq].answerEn = dataFAQ.answerEn;
         return newFaqs;
       });
+
       onClosePopup();
       setDataFAQ({
         questionId: '',
@@ -127,6 +133,9 @@ const FAQList = ({ faqs, lang }) => {
   };
 
   const onRemoveQuestion = (faq) => {
+    if (faq.id) {
+      setRemovedFaqs((prev) => [...prev, faq]);
+    }
     setFaqs((prev) =>
       prev.filter((item) => JSON.stringify(item) !== JSON.stringify(faq)),
     );

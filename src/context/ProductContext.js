@@ -22,6 +22,15 @@ const ProductContextProvider = ({ children }) => {
     images: { isError: false, message: '' },
   });
 
+  const [addImages, setAddImages] = useState([]);
+  const [addCategories, setAddCategories] = useState([]);
+
+  const [removedCategories, setRemovedCategories] = useState([]);
+  const [removedImages, setRemovedImages] = useState([]);
+  const [removedDetail, setRemovedDetail] = useState([]);
+  const [removedProductAttributes, setRemovedProductAttributes] = useState([]);
+  const [removedFaqs, setRemovedFaqs] = useState([]);
+
   return (
     <ProductContext.Provider
       value={{
@@ -31,6 +40,20 @@ const ProductContextProvider = ({ children }) => {
         setErrorFields,
         faqs,
         setFaqs,
+        addImages,
+        setAddImages,
+        addCategories,
+        setAddCategories,
+        removedCategories,
+        setRemovedCategories,
+        removedImages,
+        setRemovedImages,
+        removedDetail,
+        setRemovedDetail,
+        removedProductAttributes,
+        setRemovedProductAttributes,
+        removedFaqs,
+        setRemovedFaqs,
       }}
     >
       {children}

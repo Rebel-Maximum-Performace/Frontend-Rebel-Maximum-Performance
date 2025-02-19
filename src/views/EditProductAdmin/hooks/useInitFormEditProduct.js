@@ -244,18 +244,20 @@ const useInitFormAddProduct = () => {
         categories: undefined,
       });
 
+    formData.append('productName', dataForm.productName);
+    formData.append('sku', dataForm.sku);
+    formData.append('amazonLink', dataForm.amazonLink);
+    formData.append('alibabaLink', dataForm.alibabaLink);
+    formData.append('price', dataForm.price);
+    formData.append('isBestSeller', dataForm.isBestSeller);
+
     if (isEditProduct) {
-      formData.append('productName', dataForm.productName);
-      formData.append('sku', dataForm.sku);
-      formData.append('amazonLink', dataForm.amazonLink);
-      formData.append('alibabaLink', dataForm.alibabaLink);
-      formData.append('price', dataForm.price);
-      formData.append('isBestSeller', dataForm.isBestSeller);
+      formData.append('isEditProduct', true);
     }
 
     if (addCategories.length > 0) {
       addCategories.map((category, index) => {
-        formData.append(`categories[${index}]`, category.id);
+        formData.append(`addCategories[${index}]`, category.id);
       });
     }
 
@@ -273,6 +275,7 @@ const useInitFormAddProduct = () => {
 
     if (removedImages.length > 0) {
       removedImages.map((image, index) => {
+        console.log(image, 'image');
         formData.append(`removeImages[${index}]`, image.id);
       });
     }
@@ -281,93 +284,93 @@ const useInitFormAddProduct = () => {
       details
         .filter((item) => item.isUpdated)
         .map((detail, index) => {
-          formData.append(`details[${index}][id]`, detail.id);
-          formData.append(`details[${index}][columns]`, detail.columns);
-          detail.items.map((item, index) => {
+          formData.append(`updateDetails[${index}][id]`, detail.id);
+          formData.append(`updateDetails[${index}][columns]`, detail.columns);
+          detail.items.map((item, itemIndex) => {
             if (item.type === 'text') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `updateDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `updateDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][content]`,
+                `updateDetails[${index}][items][${itemIndex}][content]`,
                 item.content,
               );
             } else if (item.type === 'list') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `updateDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `updateDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               item.list.map((lis, lisIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][list][${lisIndex}]`,
+                  `updateDetails[${index}][items][${itemIndex}][list][${lisIndex}]`,
                   lis,
                 );
               });
             } else if (item.type === 'label-value') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `updateDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `updateDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               item.data.map((data, dataIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][data][${dataIndex}][label]`,
+                  `updateDetails[${index}][items][${itemIndex}][data][${dataIndex}][label]`,
                   data.label,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][data][${dataIndex}][value]`,
+                  `updateDetails[${index}][items][${itemIndex}][data][${dataIndex}][value]`,
                   data.value,
                 );
               });
             } else if (item.type === 'table') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `updateDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `updateDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
 
               item.headers.map((header, headerIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][label]`,
+                  `updateDetails[${index}][items][${itemIndex}][headers][${headerIndex}][label]`,
                   header.label,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][field]`,
+                  `updateDetails[${index}][items][${itemIndex}][headers][${headerIndex}][field]`,
                   header.field,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][position]`,
+                  `updateDetails[${index}][items][${itemIndex}][headers][${headerIndex}][position]`,
                   'left',
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][width]`,
+                  `updateDetails[${index}][items][${itemIndex}][headers][${headerIndex}][width]`,
                   header.width,
                 );
               });
 
               item.contents.map((content, contentIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][contents][${contentIndex}][id]`,
+                  `updateDetails[${index}][items][${itemIndex}][contents][${contentIndex}][id]`,
                   content.id,
                 );
                 item.headers.map((header) => {
                   formData.append(
-                    `details[${index}][items][${itemIndex}][contents][${contentIndex}][${header.field}]`,
+                    `updateDetails[${index}][items][${itemIndex}][contents][${contentIndex}][${header.field}]`,
                     content[header.field],
                   );
                 });
@@ -387,92 +390,92 @@ const useInitFormAddProduct = () => {
       details
         .filter((item) => item.isNew)
         .map((detail, index) => {
-          formData.append(`details[${index}][columns]`, detail.columns);
-          detail.items.map((item, index) => {
+          formData.append(`addDetails[${index}][columns]`, detail.columns);
+          detail.items.map((item, itemIndex) => {
             if (item.type === 'text') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `addDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `addDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][content]`,
+                `addDetails[${index}][items][${itemIndex}][content]`,
                 item.content,
               );
             } else if (item.type === 'list') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `addDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `addDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               item.list.map((lis, lisIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][list][${lisIndex}]`,
+                  `addDetails[${index}][items][${itemIndex}][list][${lisIndex}]`,
                   lis,
                 );
               });
             } else if (item.type === 'label-value') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `addDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `addDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
               item.data.map((data, dataIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][data][${dataIndex}][label]`,
+                  `addDetails[${index}][items][${itemIndex}][data][${dataIndex}][label]`,
                   data.label,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][data][${dataIndex}][value]`,
+                  `addDetails[${index}][items][${itemIndex}][data][${dataIndex}][value]`,
                   data.value,
                 );
               });
             } else if (item.type === 'table') {
               formData.append(
-                `details[${index}][items][${itemIndex}][title]`,
+                `addDetails[${index}][items][${itemIndex}][title]`,
                 item.title,
               );
               formData.append(
-                `details[${index}][items][${itemIndex}][type]`,
+                `addDetails[${index}][items][${itemIndex}][type]`,
                 item.type,
               );
 
               item.headers.map((header, headerIndex) => {
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][label]`,
+                  `addDetails[${index}][items][${itemIndex}][headers][${headerIndex}][label]`,
                   header.label,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][field]`,
+                  `addDetails[${index}][items][${itemIndex}][headers][${headerIndex}][field]`,
                   header.field,
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][position]`,
+                  `addDetails[${index}][items][${itemIndex}][headers][${headerIndex}][position]`,
                   'left',
                 );
                 formData.append(
-                  `details[${index}][items][${itemIndex}][headers][${headerIndex}][width]`,
+                  `addDetails[${index}][items][${itemIndex}][headers][${headerIndex}][width]`,
                   header.width,
                 );
               });
 
               item.contents.map((content, contentIndex) => {
-                formData.append(
-                  `details[${index}][items][${itemIndex}][contents][${contentIndex}][id]`,
-                  content.id,
-                );
+                // formData.append(
+                //   `addDetails[${index}][items][${itemIndex}][contents][${contentIndex}][id]`,
+                //   content.id,
+                // );
                 item.headers.map((header) => {
                   formData.append(
-                    `details[${index}][items][${itemIndex}][contents][${contentIndex}][${header.field}]`,
+                    `addDetails[${index}][items][${itemIndex}][contents][${contentIndex}][${header.field}]`,
                     content[header.field],
                   );
                 });
@@ -486,11 +489,11 @@ const useInitFormAddProduct = () => {
       faqs
         .filter((item) => item.isNew)
         .map((faq, index) => {
-          formData.append(`faqs[${index}][questionId]`, faq.questionId);
-          formData.append(`faqs[${index}][answerId]`, faq.answerId);
-          formData.append(`faqs[${index}][questionEn]`, faq.questionEn);
-          formData.append(`faqs[${index}][answerEn]`, faq.answerEn);
-          formData.append(`faqs[${index}][orderFaq]`, index + 1);
+          formData.append(`addFaqs[${index}][questionId]`, faq.questionId);
+          formData.append(`addFaqs[${index}][answerId]`, faq.answerId);
+          formData.append(`addFaqs[${index}][questionEn]`, faq.questionEn);
+          formData.append(`addFaqs[${index}][answerEn]`, faq.answerEn);
+          formData.append(`addFaqs[${index}][orderFaq]`, index + 1);
         });
     }
 
@@ -498,12 +501,12 @@ const useInitFormAddProduct = () => {
       faqs
         .filter((item) => item.isUpdated)
         .map((faq, index) => {
-          formData.append(`faqs[${index}][id]`, faq.id);
-          formData.append(`faqs[${index}][questionId]`, faq.questionId);
-          formData.append(`faqs[${index}][answerId]`, faq.answerId);
-          formData.append(`faqs[${index}][questionEn]`, faq.questionEn);
-          formData.append(`faqs[${index}][answerEn]`, faq.answerEn);
-          formData.append(`faqs[${index}][orderFaq]`, index + 1);
+          formData.append(`updateFaqs[${index}][id]`, faq.id);
+          formData.append(`updateFaqs[${index}][questionId]`, faq.questionId);
+          formData.append(`updateFaqs[${index}][answerId]`, faq.answerId);
+          formData.append(`updateFaqs[${index}][questionEn]`, faq.questionEn);
+          formData.append(`updateFaqs[${index}][answerEn]`, faq.answerEn);
+          formData.append(`updateFaqs[${index}][orderFaq]`, index + 1);
         });
     }
 

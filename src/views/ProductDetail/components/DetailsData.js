@@ -14,7 +14,7 @@ const DetailsData = ({ rows = [], isLoading }) => {
           className="w-full lg:justify-between flex flex-col lg:flex-row"
           key={indexRow}
         >
-          {row.items.map((item, indexCol) => (
+          {row.items.map((_, indexCol) => (
             <div
               key={indexCol}
               className={`${

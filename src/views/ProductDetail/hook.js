@@ -10,7 +10,7 @@ export const useInitDetailsData = () => {
     switch (type) {
       case 'text':
         return (
-          <p className="font-helvetica_regular text-bodySm lg:text-bodyBase text-netral-90 text-justify mt-[5px] lg:mt-[10px]">
+          <p className="font-helvetica_regular text-bodySm lg:text-bodyBase text-netral-90 text-justify mt-[5px] lg:mt-[10px] whitespace-pre-line">
             {columnData.content}
           </p>
         );
@@ -65,14 +65,27 @@ export const useInitTableDetailsData = ({ data }) => {
     { label: 'A-Z', value: 'asc' },
     { label: 'Z-A', value: 'desc' },
   ];
+  const limitList = [
+    { label: '5', value: 5 },
+    { label: '10', value: 10 },
+    { label: '20', value: 20 },
+  ];
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 5,
+  });
+  const totalPages = Math.ceil(
+    (dataFiltered || data.contents).length / pagination.limit,
+  );
 
   useEffect(() => {
-    setSortByList(
-      data.headers?.map((header, index) => ({
-        label: header.label,
-        value: index,
-      })),
-    );
+    const filtered = data.headers?.map((header) => ({
+      label: header.label,
+      value: header.label,
+    }));
+
+    setSortByList(filtered);
+    setFilter({ ...filter, sortBy: filtered[0]?.value });
   }, [data]);
 
   const onSearch = (e) => {
@@ -86,6 +99,15 @@ export const useInitTableDetailsData = ({ data }) => {
     });
   };
 
+  useEffect(() => {
+    const filteredData = data.contents.filter((item) => {
+      return Object.keys(item).some((key) =>
+        item[key].toString().toLowerCase().includes(search.toLowerCase()),
+      );
+    });
+    setDataFiltered(filteredData);
+  }, [search]);
+
   return {
     search,
     onSearch,
@@ -95,5 +117,9 @@ export const useInitTableDetailsData = ({ data }) => {
     onChangeFilter,
     sortByList,
     orderList,
+    pagination,
+    setPagination,
+    totalPages,
+    limitList,
   };
 };

@@ -101,13 +101,25 @@ const useInitIndex = () => {
         sortBy: getSortFilter(sortByQuery),
         order: getOrderFilter(sortByQuery),
         page: pageQuery || 1,
-        filters: filterQuery ? JSON.parse(filterQuery) : [],
+        filters: filterQuery
+          ? JSON.parse(filterQuery).map((item) => ({
+              attribute: item.key,
+              values: item.values,
+            }))
+          : [],
       },
       {
         onError: onErrorMutation,
       },
     );
-  }, [debounceSearch, categoryQuery, minQuery, maxQuery, sortByQuery]);
+  }, [
+    debounceSearch,
+    categoryQuery,
+    minQuery,
+    maxQuery,
+    sortByQuery,
+    filterQuery,
+  ]);
 
   return {
     t,

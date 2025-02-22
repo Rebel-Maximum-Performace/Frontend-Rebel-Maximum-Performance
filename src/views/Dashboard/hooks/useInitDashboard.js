@@ -18,7 +18,7 @@ const useInitDashboard = () => {
     },
     {
       label: t(`DASHBOARD.Jumlah Pencarian`),
-      field: 'searchCount',
+      field: 'search_count',
       position: 'center',
     },
   ];

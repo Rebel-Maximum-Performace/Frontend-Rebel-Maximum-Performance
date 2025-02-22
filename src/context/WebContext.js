@@ -2,7 +2,7 @@
 import { useTranslation } from '@/app/i18n/client';
 import { useParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useRef, useState } from 'react';
 
 const WebContext = createContext();
 
@@ -23,6 +23,7 @@ const WebContextProvider = ({ children }) => {
     open: false,
     message: '',
   });
+  const contentRef = useRef(null);
   const onErrorMutation = (data) => {
     setLoading(false);
     setErrorToast({
@@ -30,6 +31,7 @@ const WebContextProvider = ({ children }) => {
       message: data?.response?.data?.message,
     });
   };
+  const [productId, setProductId] = useState(null);
 
   return (
     <WebContext.Provider
@@ -58,6 +60,9 @@ const WebContextProvider = ({ children }) => {
         setSearchTopBar,
         categoryTopBar,
         setCategoryTopBar,
+        contentRef,
+        productId,
+        setProductId,
       }}
     >
       {children}

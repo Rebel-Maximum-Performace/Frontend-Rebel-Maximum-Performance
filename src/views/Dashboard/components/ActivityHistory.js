@@ -17,7 +17,7 @@ const actionActivityHistory = [
 ];
 
 const ActivityHistory = ({ activityHistory }) => {
-  const { t } = useWebContext();
+  const { t, setLoading } = useWebContext();
   const router = useRouter();
   const headersActivityHistory = [
     {
@@ -39,6 +39,7 @@ const ActivityHistory = ({ activityHistory }) => {
 
   const onClickAction = (name, data) => {
     if (name === 'detail') {
+      setLoading(true);
       router.push(`/histories/${data.id || 1}`);
     }
   };
@@ -49,7 +50,7 @@ const ActivityHistory = ({ activityHistory }) => {
         <h3 className="text-bodySm md:text-h5 font-helvetica_bold text-netral-90">
           {t(`DASHBOARD.Riwayat Aktivitas`)}
         </h3>
-        <Link href="/admin/histories">
+        <Link href="/admin/histories" onClick={() => setLoading(true)}>
           <h3 className="text-bodySm md:text-h5 font-helvetica_regular text-primary-50">
             {t(`HOMEPAGE.Lihat Semua`)}
           </h3>

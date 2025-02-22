@@ -34,13 +34,14 @@ const useInitFormAddProduct = () => {
   const { data: responseCategories, mutate: getAllCategories } =
     useGetAllCategories();
   const { mutate: add } = useAddProduct({
-    onError: () => {},
+    onError: onErrorMutation,
     onSuccess: () => {
       setPopupProduct({
         isOpen: true,
         type: 'success',
         message: t(`ADD_PRODUCT.Produk berhasil ditambahkan`),
       });
+      setLoading(false);
     },
   });
 
@@ -281,7 +282,7 @@ const useInitFormAddProduct = () => {
             );
             formData.append(
               `details[${index}][items][${itemIndex}][headers][${headerIndex}][position]`,
-              header.position,
+              'left',
             );
             formData.append(
               `details[${index}][items][${itemIndex}][headers][${headerIndex}][width]`,
@@ -321,6 +322,12 @@ const useInitFormAddProduct = () => {
     });
 
     add(formData);
+    setPopupProduct({
+      isOpen: false,
+      type: '',
+      message: '',
+    });
+    setLoading(true);
   };
 
   // * USE EFFECT

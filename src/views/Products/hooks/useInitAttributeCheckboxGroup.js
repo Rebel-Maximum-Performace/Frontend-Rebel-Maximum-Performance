@@ -17,14 +17,18 @@ const useInitAttributeCheckboxGroup = ({
   };
 
   const onCheckAttributeValue = (key, value) => {
-    const index = attributes.findIndex((item) => item === key);
     const currentAttributes = filterQuery;
+    const index = currentAttributes.findIndex((item) => item.key === key);
 
     if (index !== -1 && currentAttributes.length > 0) {
       if (currentAttributes[index].values.includes(value)) {
         currentAttributes[index].values = currentAttributes[
           index
         ].values.filter((item) => item !== value);
+
+        if (currentAttributes[index].values.length === 0) {
+          currentAttributes.splice(index, 1);
+        }
       } else {
         currentAttributes[index].values.push(value);
       }

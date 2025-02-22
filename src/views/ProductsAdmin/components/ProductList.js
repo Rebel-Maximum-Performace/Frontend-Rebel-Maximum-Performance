@@ -1,8 +1,10 @@
+import Button from '@/components/Button';
 import { arrayCategoryToString } from '@/helpers';
 import { formatMoney } from '@/helpers/formatting';
-import Link from 'next/link';
+import { FaInfoCircle } from 'react-icons/fa';
+import { RiEditCircleFill } from 'react-icons/ri';
 
-const ProductList = ({ data, isLoading, t, setLoading }) => {
+const ProductList = ({ data, isLoading, t, onDetail, onEdit, onRemove }) => {
   return (
     <div className="w-full min-h-screen overflow-scroll my-[15px] lg:my-[30px]">
       <div className="w-full flex flex-wrap">
@@ -23,18 +25,24 @@ const ProductList = ({ data, isLoading, t, setLoading }) => {
           ))
         ) : data?.length > 0 ? (
           data.map((product, index) => (
-            <Link
-              href={`/products/${product.name
-                ?.replaceAll('/', '-')
-                ?.replaceAll(' ', '-')}=${product.id}`}
+            <div
               key={index}
-              onClick={() => setLoading(true)}
-              className="w-[calc(50%-10px)] md:w-[calc(100%/3-10px)] lg:w-[calc(100%/4-10px)] mb-[10px] lg:mb-[20px] overflow-hidden border border-netral-20 hover:border-primary-50 hover:shadow-xl cursor-pointer hover:shadow-primary-50/25 rounded-[10px] lg:rounded-[15px] flex justify-start flex-col mr-[10px]"
+              className="w-[calc(50%-10px)] md:w-[calc(100%/3-10px)] lg:w-[calc(100%/4-10px)] mb-[10px] lg:mb-[20px] overflow-hidden border border-netral-20 hover:border-primary-50 hover:shadow-xl hover:shadow-primary-50/25 rounded-[10px] lg:rounded-[15px] flex justify-start flex-col mr-[10px]"
             >
               <div
                 className="pt-[100%] w-full bg-cover bg-center"
                 style={{ backgroundImage: `url(${product.images[0]})` }}
-              />
+              ></div>
+              <div className="w-full flex space-x-7 justify-center items-center px-[5px] lg:px-[10px]">
+                <FaInfoCircle
+                  className="text-[60px] text-primary-50 hover:border-netral-90 border-2 border-netral-10 rounded-full box-border cursor-pointer"
+                  onClick={() => onDetail(product)}
+                />
+                <RiEditCircleFill
+                  className="text-[60px] text-third-50 hover:border-primary-50 border-2 border-netral-10 rounded-full box-border cursor-pointer"
+                  onClick={() => onEdit(product)}
+                />
+              </div>
               <div className="w-full p-[5px] lg:p-[10px]">
                 <div className="w-full space-y-[1px]">
                   <h3 className="font-helvetica_regular h-[39px] lg:h-[48px] text-bodySm lg:text-bodyBase text-netral-90 text-ellipsis overflow-hidden whitespace-pre-line line-clamp-2 w-full">
@@ -50,8 +58,26 @@ const ProductList = ({ data, isLoading, t, setLoading }) => {
                 <h4 className="font-helvetica_bold text-bodySm lg:text-bodyBase text-primary-50 mt-[10px]">
                   {formatMoney(product.price, '$')}
                 </h4>
+                <div className="flex justify-between my-2">
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className="w-full justify-center"
+                    onClick={() => onRemove(product)}
+                  >
+                    Delete
+                  </Button>
+                  {/* <Button
+                    color="primary"
+                    variant="contained"
+                    className="w-1/2 justify-center"
+                    onClick={() => (product)}
+                  >
+                    Deactive
+                  </Button> */}
+                </div>
               </div>
-            </Link>
+            </div>
           ))
         ) : (
           <div className="w-full text-center text-bodySm lg:text-h4 font-helvetica_regular text-netral-90">

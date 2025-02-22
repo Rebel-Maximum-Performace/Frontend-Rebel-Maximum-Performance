@@ -3,10 +3,10 @@ import ProductContent from './components/ProductContent';
 import { useWebContext } from '@/context/WebContext';
 
 const ProductAdminPage = ({ params }) => {
-  const { t } = useWebContext();
+  const { t, contentRef } = useWebContext();
 
   return (
-    <LayoutAdmin selectedMenu={t('MENU_ADMIN.Produk')}>
+    <LayoutAdmin selectedMenu={t('MENU_ADMIN.Produk')} contentRef={contentRef}>
       <ProductContent />
     </LayoutAdmin>
   );

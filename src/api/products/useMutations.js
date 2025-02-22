@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import {
   serviceAddProduct,
+  serviceEditProduct,
   serviceGetAllAttributes,
   serviceGetAllProducts,
   serviceGetDetailProduct,
+  serviceRemoveProduct,
 } from '../endpoints';
 
 export const useGetAllProducts = () =>
@@ -24,5 +26,19 @@ export const useAddProduct = ({ onError, onSuccess }) => {
     mutationFn: serviceAddProduct,
     onError,
     onSuccess,
+  });
+};
+
+export const useEditProduct = ({ onError, onSuccess }) => {
+  return useMutation({
+    mutationFn: serviceEditProduct,
+    onError,
+    onSuccess,
+  });
+};
+
+export const useRemoveProduct = () => {
+  return useMutation({
+    mutationFn: serviceRemoveProduct,
   });
 };

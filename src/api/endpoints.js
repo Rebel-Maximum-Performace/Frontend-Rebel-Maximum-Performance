@@ -3,7 +3,7 @@ import axios from 'axios';
 export const publicAPI = process.env.NEXT_PUBLIC_API;
 
 export const apiClient = axios.create({
-  timeout: 5000,
+  // timeout: 5000,
 });
 
 export const serviceLogin = (payload) =>

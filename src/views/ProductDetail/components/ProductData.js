@@ -25,7 +25,7 @@ const ProductData = ({ idProduct, productName }) => {
             alt={productDetail.productName}
             width={400}
             height={400}
-            className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[10px] lg:rounded-[15px] mx-auto lg:mx-0"
+            className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[10px] lg:rounded-[15px] mx-auto lg:mx-0 object-cover"
           />
         )}
         <div className="w-full lg:w-[calc(100%-400px-3%)] lg:h-[400px] lg:ml-[3%]">
@@ -106,7 +106,7 @@ const ProductData = ({ idProduct, productName }) => {
                     alt={`image-${productName}-${index}`}
                     width={100}
                     height={100}
-                    className={`w-[50px] md:w-[100px] h-[50px] md:h-[100px] rounded-[10px] lg:rounded-[15px] cursor-pointer ${
+                    className={`w-[50px] md:w-[100px] h-[50px] md:h-[100px] rounded-[10px] lg:rounded-[15px] cursor-pointer object-cover ${
                       index === activeImage ? 'border-2 border-primary-50' : ''
                     }`}
                     onClick={() => handleClickImage(index)}

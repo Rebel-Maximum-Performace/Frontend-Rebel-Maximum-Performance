@@ -7,6 +7,7 @@ import TextInput from '@/components/Form/TextInput';
 import Button from '@/components/Button';
 import { useInitProductContent } from '../hooks/useInitProductContent';
 import ProductFilter from './ProductFilter';
+import Popup from '@/components/Popup';
 
 const ProductContent = () => {
   const {
@@ -17,7 +18,6 @@ const ProductContent = () => {
     sortByList,
     onClickFilter,
     onSearch,
-    searchQuery,
     products,
     categories,
     attributes,
@@ -28,7 +28,14 @@ const ProductContent = () => {
     maxQuery,
     sortByQuery,
     filterQuery,
-    setLoading,
+    search,
+    setSearch,
+    onDetail,
+    onEdit,
+    onRemove,
+    onClosePopup,
+    handleDeleteProduct,
+    popupConfirm,
   } = useInitProductContent();
 
   return (
@@ -82,10 +89,13 @@ const ProductContent = () => {
           <TextInput
             name="search"
             placeholder={`${t('COMPONENT.Cari')}...`}
-            onChange={onSearch}
-            value={searchQuery}
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
             iconRight={
-              <FaSearch className="text-[18px] md:text-[24px] text-primary-50" />
+              <FaSearch
+                className="text-[18px] md:text-[24px] text-primary-50"
+                onClick={() => onSearch(search)}
+              />
             }
             className="w-full"
           />
@@ -121,15 +131,70 @@ const ProductContent = () => {
         maxQuery={maxQuery}
         categoryQuery={categoryQuery}
         filterQuery={filterQuery ? JSON.parse(filterQuery) : []}
-        onApply={() => {}}
       />
 
       <ProductList
         data={products || []}
         isLoading={isLoading}
         t={t}
-        setLoading={setLoading}
+        onDetail={onDetail}
+        onEdit={onEdit}
+        onRemove={onRemove}
       />
+
+      <Popup
+        open={popupConfirm.isOpen && popupConfirm.type.includes('warning')}
+        onClose={onClosePopup}
+        width="420px"
+      >
+        <h5 className="text-labelMd lg:text-h5 text-primary-50 text-center mb-[15px] lg:mb-[30px]">
+          {t(`COMPONENT.Peringatan`)}
+        </h5>
+        <p className="text-labelMd lg:text-h5 text-center">
+          {popupConfirm.message}
+        </p>
+        <div className="flex justify-between items-center w-full mt-[15px] lg:mt-[30px]">
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={onClosePopup}
+            className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
+          >
+            {t('COMPONENT.Batal')}
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={handleDeleteProduct}
+            className="w-[calc(50%-10px)] lg:w-[calc(50%-20px)] justify-center"
+          >
+            {t('COMPONENT.Ya')}
+          </Button>
+        </div>
+      </Popup>
+
+      <Popup
+        open={popupConfirm.isOpen && popupConfirm.type.includes('success')}
+        onClose={onClosePopup}
+        width="420px"
+      >
+        <h5 className="text-labelMd lg:text-h5 text-[#00AA25] text-center mb-[15px] lg:mb-[30px]">
+          {t(`COMPONENT.Berhasil`)}
+        </h5>
+        <p className="text-labelMd lg:text-h5 text-center">
+          {popupConfirm.message}
+        </p>
+        <div className="flex justify-between items-center w-full mt-[15px] lg:mt-[30px]">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={onClosePopup}
+            className="w-full justify-center"
+          >
+            OK
+          </Button>
+        </div>
+      </Popup>
     </div>
   );
 };

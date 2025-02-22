@@ -41,6 +41,10 @@ const RenderContentColumn = ({
       delete Object.assign(item, { [headerValue]: item[oldKey] })[oldKey];
     });
 
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
+    }
+
     setDetails(updatedDetails);
   };
 
@@ -54,6 +58,11 @@ const RenderContentColumn = ({
     const updatedDetails = [...details];
     updatedDetails[detailIndex].items[itemIndex].contents[contentIndex][field] =
       contentValue;
+
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
+    }
+
     setDetails(updatedDetails);
   };
 
@@ -64,6 +73,9 @@ const RenderContentColumn = ({
       field: '',
       width: 0,
     });
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
+    }
     setDetails(updatedDetails);
   };
 
@@ -73,6 +85,9 @@ const RenderContentColumn = ({
       id: updatedDetails[detailIndex].items[itemIndex].contents?.length,
       '': '',
     });
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
+    }
     setDetails(updatedDetails);
   };
 
@@ -89,6 +104,9 @@ const RenderContentColumn = ({
         delete item[selectedHeader.field];
       });
     }
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
+    }
     setDetails(updatedDetails);
   };
 
@@ -96,6 +114,9 @@ const RenderContentColumn = ({
     const updatedDetails = [...details];
     if (updatedDetails[detailIndex].items[itemIndex].contents.length > 1) {
       updatedDetails[detailIndex].items[itemIndex].contents.splice(rowIndex, 1);
+    }
+    if (updatedDetails[detailIndex]?.id) {
+      updatedDetails[detailIndex].isUpdated = true;
     }
     setDetails(updatedDetails);
   };

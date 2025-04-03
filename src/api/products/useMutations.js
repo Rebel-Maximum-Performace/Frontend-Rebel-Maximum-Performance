@@ -4,12 +4,16 @@ import {
   serviceEditProduct,
   serviceGetAllAttributes,
   serviceGetAllProducts,
+  serviceGetAllProductsAdmin,
   serviceGetDetailProduct,
   serviceRemoveProduct,
 } from '../endpoints';
 
 export const useGetAllProducts = () =>
   useMutation({ mutationFn: serviceGetAllProducts });
+
+export const useGetAllProductsAdmin = () =>
+  useMutation({ mutationFn: serviceGetAllProductsAdmin });
 
 export const useGetAllAttributes = () =>
   useMutation({

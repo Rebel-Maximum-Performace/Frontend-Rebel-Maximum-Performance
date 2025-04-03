@@ -2,7 +2,7 @@
 import { useGetAllCategories } from '@/api/categories/useMutation';
 import {
   useGetAllAttributes,
-  useGetAllProducts,
+  useGetAllProductsAdmin,
   useRemoveProduct,
 } from '@/api/products/useMutations';
 import { useWebContext } from '@/context/WebContext';
@@ -52,7 +52,7 @@ export const useInitProductContent = () => {
   });
 
   // * QUERY
-  const { isLoading, mutate: getAllProducts } = useGetAllProducts();
+  const { isLoading, mutate: getAllProducts } = useGetAllProductsAdmin();
   const { data: responseCategories, mutate: getAllCategories } =
     useGetAllCategories();
   const { data: responseAttributes, mutate: getAllAttributes } =

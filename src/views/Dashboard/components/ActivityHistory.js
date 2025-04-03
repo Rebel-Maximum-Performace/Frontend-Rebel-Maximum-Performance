@@ -2,6 +2,7 @@
 import Button from '@/components/Button';
 import Table from '@/components/Table';
 import { useWebContext } from '@/context/WebContext';
+import { formatDate } from '@/helpers/formatting';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -24,16 +25,19 @@ const ActivityHistory = ({ activityHistory }) => {
       label: t(`DASHBOARD.Tindakan`),
       field: 'action',
       position: 'left',
+      width: '20%',
     },
     {
       label: t(`DASHBOARD.Fitur`),
       field: 'feature',
       position: 'left',
+      width: '35%',
     },
     {
       label: t(`DASHBOARD.Dibuat`),
       field: 'createdDate',
       position: 'left',
+      width: '30%',
     },
   ];
 
@@ -58,7 +62,10 @@ const ActivityHistory = ({ activityHistory }) => {
       </div>
       <Table
         headers={headersActivityHistory}
-        contents={activityHistory}
+        contents={(activityHistory || []).map((item) => ({
+          ...item,
+          createdDate: formatDate(item.created_at),
+        }))}
         actions={actionActivityHistory}
         onClickAction={onClickAction}
       />

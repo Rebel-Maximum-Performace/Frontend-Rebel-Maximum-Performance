@@ -28,7 +28,7 @@ const WebContextProvider = ({ children }) => {
     setLoading(false);
     setErrorToast({
       open: true,
-      message: data?.response?.data?.message,
+      message: data?.response?.data?.message || data.message,
     });
   };
   const [productId, setProductId] = useState(null);

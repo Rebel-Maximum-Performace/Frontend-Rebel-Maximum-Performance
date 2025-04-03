@@ -73,9 +73,9 @@ const FormAddProduct = () => {
       />
 
       <TextInput
-        label={t(`ADD_PRODUCT.Code Produk`)}
+        label={t(`ADD_PRODUCT.Kode Produk`)}
         name="sku"
-        placeholder={t(`ADD_PRODUCT.Masukkan Code Produk`)}
+        placeholder={t(`ADD_PRODUCT.Masukkan Kode Produk`)}
         onChange={(e) =>
           onChangeDataForm('sku', formatProductCode(e.target.value))
         }

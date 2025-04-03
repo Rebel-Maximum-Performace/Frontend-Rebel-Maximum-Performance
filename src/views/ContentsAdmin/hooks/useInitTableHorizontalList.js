@@ -8,11 +8,9 @@ import { useWebContext } from '@/context/WebContext';
 import { mappingErrorFieldHorizontalList } from '@/helpers';
 import { useEffect, useState } from 'react';
 import { FaRegEdit, FaTrash } from 'react-icons/fa';
-import { useQueryClient } from '@tanstack/react-query';
 
 const useInitTableHorizontalList = () => {
   const { t, onErrorMutation } = useWebContext();
-  const queryClient = useQueryClient();
   const headersTableHorizontalList = [
     { label: 'ID', field: 'id', position: 'left', width: '30%' },
     {
@@ -129,7 +127,7 @@ const useInitTableHorizontalList = () => {
   };
   const onClosePopup = () => {
     if (popupContents.type === 'success') {
-      queryClient.invalidateQueries('horizontalList');
+      getAllHorizontalList(null, { onError: onErrorMutation });
       setDataForm({
         title: '',
         link: '',

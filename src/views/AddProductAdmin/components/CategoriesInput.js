@@ -29,7 +29,11 @@ const CategoriesInput = ({
       onChange={(value) => onChangeDataForm('categories', value)}
     />
 
-    <div className="flex space-x-2 rounded-[10px] lg:rounded-[15px] border border-netral-40 p-[10px] my-[15px] lg:my-[30px] min-h-[200px] w-full">
+    <div
+      className={`flex space-x-2 rounded-[10px] lg:rounded-[15px] border p-[10px] my-[15px] lg:my-[30px] min-h-[200px] w-full ${
+        errorFields.category.isError ? 'border-primary-30' : 'border-netral-40'
+      }`}
+    >
       {(dataForm.categories || []).map((cat, index) => (
         <div
           key={index}

@@ -38,11 +38,13 @@ const HomePage = () => {
           <HorizontalBanner lists={horizontalList.details} />
         </div>
       ))}
-      <PromoBanner
-        text={promotionBanner?.text}
-        image={promotionBanner?.image}
-        link={promotionBanner?.link || '/'}
-      />
+      {promotionBanner && (
+        <PromoBanner
+          text={promotionBanner?.text}
+          image={promotionBanner?.image}
+          link={promotionBanner?.link || '/'}
+        />
+      )}
       <ProductList />
       <Footer role="User" />
     </>

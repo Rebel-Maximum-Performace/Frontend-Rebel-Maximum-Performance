@@ -23,6 +23,8 @@ export const mappingErrorFieldProduct = (t, type) => {
   switch (type) {
     case 'productName':
       return t(`ADD_PRODUCT.Nama Produk harus diisi`);
+    case 'sku':
+      return t(`ADD_PRODUCT.Kode Produk harus diisi`);
     case 'amazonLink':
       return t(`ADD_PRODUCT.Link Amazon harus diisi`);
     case 'alibabaLink':
@@ -41,8 +43,8 @@ export const mappingErrorFieldProduct = (t, type) => {
       return t(`CONTENTS.Format file tidak valid`);
     case 'title':
       return t(`CONTENTS.Judul harus diisi`);
-    case 'content':
-      return t(`ADD_PRODUCT.Konten harus diisi`);
+    case 'description':
+      return t(`ADD_PRODUCT.Deskripsi harus diisi`);
     case 'label':
       return t(`ADD_PRODUCT.Label harus diisi`);
     case 'value':

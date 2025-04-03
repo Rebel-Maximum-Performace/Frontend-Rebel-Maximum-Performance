@@ -35,3 +35,20 @@ export const formatProductCode = (input) => {
 
   return toAlphaNumericAndStrip;
 };
+
+export function formatDate(inputDate) {
+  // Membuat objek Date dari input string
+  const date = new Date(inputDate);
+
+  // Mengambil komponen tanggal dan waktu
+  const day = String(date.getUTCDate()).padStart(2, '0'); // Hari (DD)
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Bulan (MM), ditambah 1 karena dimulai dari 0
+  const year = date.getUTCFullYear(); // Tahun (YYYY)
+
+  const hours = String(date.getUTCHours()).padStart(2, '0'); // Jam (HH)
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0'); // Menit (mm)
+  const seconds = String(date.getUTCSeconds()).padStart(2, '0'); // Detik (ss)
+
+  // Menggabungkan semua komponen menjadi format DD-MM-YYYY HH:mm:ss
+  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+}

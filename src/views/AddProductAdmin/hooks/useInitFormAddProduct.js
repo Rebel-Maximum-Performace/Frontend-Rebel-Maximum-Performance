@@ -9,8 +9,14 @@ import { useEffect, useState } from 'react';
 
 const useInitFormAddProduct = () => {
   const { t, onErrorMutation, setLoading } = useWebContext();
-  const { details, setDetails, errorFields, setErrorFields, faqs } =
-    useProductContext();
+  const {
+    details,
+    setDetails,
+    errorFields,
+    setErrorFields,
+    faqs,
+    handleValidation,
+  } = useProductContext();
   const router = useRouter();
 
   // * LOCAL STATE
@@ -54,6 +60,13 @@ const useInitFormAddProduct = () => {
       setDataForm({
         ...dataForm,
         categories: [...dataForm.categories, dataCategory],
+      });
+      setErrorFields({
+        ...errorFields,
+        category: {
+          isError: false,
+          message: '',
+        },
       });
     } else {
       if (
@@ -149,6 +162,20 @@ const useInitFormAddProduct = () => {
     ]);
   };
   const onSaveProduct = () => {
+    // * Validation
+    const sendErrorType = (type) => {
+      return mappingErrorFieldProduct(t, type);
+    };
+    const isValid = handleValidation({
+      dataForm,
+      images,
+      sendErrorType,
+      onErrorMutation,
+    });
+    if (!isValid) {
+      return;
+    }
+
     setPopupProduct({
       isOpen: true,
       type: 'warning',
@@ -332,7 +359,7 @@ const useInitFormAddProduct = () => {
 
   // * USE EFFECT
   useEffect(() => {
-    getAllCategories({ search: '' }, { onError: onErrorMutation });
+    getAllCategories({ search: '', page: 1 }, { onError: onErrorMutation });
   }, []);
 
   return {

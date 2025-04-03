@@ -57,6 +57,14 @@ export const serviceGetAllProducts = (payload) =>
     },
   });
 
+export const serviceGetAllProductsAdmin = (payload) =>
+  apiClient.post(`${publicAPI}/productservice/getadminproducts`, payload, {
+    headers: {
+      'X-CSRF-Token': decryptData(localStorage.getItem('csrfToken')),
+      Authorization: decryptData(localStorage.getItem('accessToken')),
+    },
+  });
+
 export const serviceGetDetailProduct = (payload) =>
   apiClient.post(`${publicAPI}/productservice/detail`, payload, {
     headers: {

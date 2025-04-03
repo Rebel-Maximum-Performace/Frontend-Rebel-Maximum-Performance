@@ -10,16 +10,19 @@ const useInitDashboard = () => {
       label: 'ID',
       field: 'id',
       position: 'left',
+      width: '30%',
     },
     {
       label: t(`DASHBOARD.Nama`),
       field: 'name',
       position: 'left',
+      width: '50%',
     },
     {
       label: t(`DASHBOARD.Jumlah Pencarian`),
       field: 'search_count',
       position: 'center',
+      width: '20%',
     },
   ];
 

@@ -107,7 +107,11 @@ const RenderContentColumn = ({
         <>
           {
             <Textarea
-              className={`resize-none overflow-y-auto break-words font-helvetica_reguler text-bodySm lg:text-bodyBase border-2 border-dashed border-secondary-50 placeholder:font-helvetica_reguler outline-none placeholder:text-netral-50 disabled:bg-transparent w-full inline-block`}
+              className={`resize-none overflow-y-auto break-words font-helvetica_reguler text-bodySm lg:text-bodyBase border-2 border-dashed placeholder:font-helvetica_reguler outline-none placeholder:text-netral-50 disabled:bg-transparent w-full inline-block ${
+                errorFields?.description?.isError
+                  ? 'border-primary-30'
+                  : 'border-secondary-50'
+              }`}
               name={`detail-${detailIndex}-${itemIndex}-content`}
               id={`detail-${detailIndex}-${itemIndex}-content`}
               placeholder={t(`ADD_PRODUCT.Masukkan Konten`)}
@@ -123,15 +127,11 @@ const RenderContentColumn = ({
               onKeyUp={adjustHeightTextarea}
             ></Textarea>
           }
-          {errorFields.details?.[detailIndex]?.items?.[itemIndex]?.content
-            .isError && (
+          {errorFields?.description?.isError && (
             <span
               className={`font-helvetica_regular text-labelSm md:text-labelBase text-primary-30`}
             >
-              {
-                errorFields.details?.[detailIndex]?.items?.[itemIndex]?.content
-                  .message
-              }
+              {errorFields?.description?.message}
             </span>
           )}
         </>

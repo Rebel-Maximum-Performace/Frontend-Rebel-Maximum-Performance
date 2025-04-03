@@ -35,8 +35,19 @@ const inputDetailsType = [
 
 const DetailsInput = () => {
   const { t } = useWebContext();
-  const { details, setDetails, errorFields } = useProductContext();
+  const { details, setDetails, errorFields, setErrorFields } =
+    useProductContext();
   const onChangeDetailItems = (detailIndex, itemIndex, field, value) => {
+    if (detailIndex === 0) {
+      setErrorFields({
+        ...errorFields,
+        description: {
+          isError: false,
+          message: '',
+        },
+      });
+    }
+
     const updatedDetails = [...details];
     updatedDetails[detailIndex].items[itemIndex][field] = value;
     setDetails(updatedDetails);
@@ -111,8 +122,6 @@ const DetailsInput = () => {
                       : onChangeDetailItems(index, i, 'title', e.target.value)
                   }
                   value={item.title}
-                  isError={errorFields.details?.[index]?.items[i]?.isError}
-                  helperText={errorFields.details?.[index]?.items[i]?.message}
                   isRequired
                   className="mb-[5px] p-0 border-2 border-dashed border-secondary-50"
                 />

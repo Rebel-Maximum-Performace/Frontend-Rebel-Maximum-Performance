@@ -250,7 +250,10 @@ const useInitCategoriesContent = () => {
 
   // * USE EFFECT
   useEffect(() => {
-    getAllCategories({ search: searchDebounce }, { onError: onErrorMutation });
+    getAllCategories(
+      { search: searchDebounce, page: 1 },
+      { onError: onErrorMutation },
+    );
   }, [searchDebounce]);
 
   return {

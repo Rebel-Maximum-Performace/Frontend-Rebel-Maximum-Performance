@@ -1,5 +1,8 @@
 import { useGetAllCategories } from '@/api/categories/useMutation';
-import { useGetAllProducts } from '@/api/products/useMutations';
+import {
+  useGetAllProducts,
+  useGetAllProductsAdmin,
+} from '@/api/products/useMutations';
 import { useWebContext } from '@/context/WebContext';
 import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
@@ -26,6 +29,12 @@ const useInitTopBar = ({ isAdmin }) => {
     isLoading: isLoadingProduct,
     mutate: getAllProducts,
   } = useGetAllProducts();
+
+  const {
+    data: responseProductsAdmin,
+    isLoading: isLoadingProductAdmin,
+    mutate: getAllProductsAdmin,
+  } = useGetAllProductsAdmin();
 
   // * FUNCTIONS
   const onSearch = (e) => {
@@ -56,21 +65,39 @@ const useInitTopBar = ({ isAdmin }) => {
     }
 
     if (debounceSearch || categoryTopBar) {
-      getAllProducts(
-        {
-          search: debounceSearch ?? '',
-          category: '',
-          min: 0,
-          max: 99999999,
-          sortBy: 'Popular',
-          order: 'ASC',
-          page: 1,
-          filters: [],
-        },
-        {
-          onError: onErrorMutation,
-        },
-      );
+      if (isAdmin) {
+        getAllProductsAdmin(
+          {
+            search: debounceSearch ?? '',
+            category: '',
+            min: 0,
+            max: 99999999,
+            sortBy: 'Popular',
+            order: 'ASC',
+            page: 1,
+            filters: [],
+          },
+          {
+            onError: onErrorMutation,
+          },
+        );
+      } else {
+        getAllProducts(
+          {
+            search: debounceSearch ?? '',
+            category: '',
+            min: 0,
+            max: 99999999,
+            sortBy: 'Popular',
+            order: 'ASC',
+            page: 1,
+            filters: [],
+          },
+          {
+            onError: onErrorMutation,
+          },
+        );
+      }
     }
   }, [debounceSearch]);
 
@@ -83,9 +110,11 @@ const useInitTopBar = ({ isAdmin }) => {
       label: category.name,
       value: category.name,
     })),
-    isLoadingProduct,
+    isLoadingProduct: isAdmin ? isLoadingProductAdmin : isLoadingProduct,
     searchTopBar,
-    products: responseProducts?.data?.data,
+    products: isAdmin
+      ? responseProductsAdmin?.data?.data
+      : responseProducts?.data?.data,
     setLoading,
   };
 };

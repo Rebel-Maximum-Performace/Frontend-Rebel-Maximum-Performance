@@ -29,6 +29,7 @@ const useInitFormAddProduct = () => {
     setAddImages,
     removedDetail,
     removedFaqs,
+    handleValidation,
   } = useProductContext();
   const router = useRouter();
 
@@ -48,6 +49,7 @@ const useInitFormAddProduct = () => {
     type: '',
     message: '',
   });
+  const [isEditProduct, setIsEditProduct] = useState(false);
 
   // * QUERY
   const { data: responseCategories, mutate: getAllCategories } =
@@ -93,6 +95,7 @@ const useInitFormAddProduct = () => {
         categories: [...dataForm.categories, dataCategory],
       });
     } else {
+      setIsEditProduct(true);
       if (
         ['productName', 'sku', 'amazonLink', 'alibabaLink', 'price'].includes(
           key,
@@ -211,6 +214,20 @@ const useInitFormAddProduct = () => {
     ]);
   };
   const onSaveProduct = () => {
+    // * Validation
+    const sendErrorType = (type) => {
+      return mappingErrorFieldProduct(t, type);
+    };
+    const isValid = handleValidation({
+      dataForm,
+      images,
+      sendErrorType,
+      onErrorMutation,
+    });
+    if (!isValid) {
+      return;
+    }
+
     setPopupProduct({
       isOpen: true,
       type: 'warning',
@@ -232,27 +249,15 @@ const useInitFormAddProduct = () => {
     const formData = new FormData();
     formData.append('id', productId);
 
-    const isEditProduct =
-      JSON.stringify({ ...dataForm, categories: undefined }) ===
-      JSON.stringify({
-        productName: responseDetail.data.data.productName,
-        sku: responseDetail.data.data.sku,
-        amazonLink: responseDetail.data.data.amazonLink,
-        alibabaLink: responseDetail.data.data.alibabaLink,
-        price: responseDetail.data.data.price,
-        isBestSeller: responseDetail.data.data.isBestSeller,
-        categories: undefined,
-      });
-
-    formData.append('productName', dataForm.productName);
-    formData.append('sku', dataForm.sku);
-    formData.append('amazonLink', dataForm.amazonLink);
-    formData.append('alibabaLink', dataForm.alibabaLink);
-    formData.append('price', dataForm.price);
-    formData.append('isBestSeller', dataForm.isBestSeller);
-
+    // * Product
     if (isEditProduct) {
       formData.append('isEditProduct', true);
+      formData.append('productName', dataForm.productName);
+      formData.append('sku', dataForm.sku);
+      formData.append('amazonLink', dataForm.amazonLink);
+      formData.append('alibabaLink', dataForm.alibabaLink);
+      formData.append('price', dataForm.price);
+      formData.append('isBestSeller', dataForm.isBestSeller);
     }
 
     if (addCategories.length > 0) {
@@ -380,12 +385,6 @@ const useInitFormAddProduct = () => {
         });
     }
 
-    if (removedDetail.length > 0) {
-      removedDetail.map((detail, index) => {
-        formData.append(`removeDetails[${index}]`, detail.id);
-      });
-    }
-
     if (details.filter((item) => item.isNew).length > 0) {
       details
         .filter((item) => item.isNew)
@@ -469,10 +468,6 @@ const useInitFormAddProduct = () => {
               });
 
               item.contents.map((content, contentIndex) => {
-                // formData.append(
-                //   `addDetails[${index}][items][${itemIndex}][contents][${contentIndex}][id]`,
-                //   content.id,
-                // );
                 item.headers.map((header) => {
                   formData.append(
                     `addDetails[${index}][items][${itemIndex}][contents][${contentIndex}][${header.field}]`,
@@ -483,6 +478,12 @@ const useInitFormAddProduct = () => {
             }
           });
         });
+    }
+
+    if (removedDetail.length > 0) {
+      removedDetail.map((detail, index) => {
+        formData.append(`removeDetails[${index}]`, detail.id);
+      });
     }
 
     if (faqs.filter((item) => item.isNew).length > 0) {
@@ -516,6 +517,8 @@ const useInitFormAddProduct = () => {
       });
     }
 
+    attributesUtils();
+
     edit(formData);
     setPopupProduct({
       isOpen: false,
@@ -523,73 +526,6 @@ const useInitFormAddProduct = () => {
       message: '',
     });
     setLoading(true);
-
-    // const attributes = [];
-    // const oldAttributesData = [];
-    // const addAttributes = [];
-    // const removeProductAttributes = [];
-
-    // responseDetail.data.data.details
-    //   .filter(
-    //     (item) =>
-    //       item.items.filter(
-    //         (item) => item.type === 'label-value' || item.type === 'table',
-    //       ).length > 0,
-    //   )
-    //   .forEach((item) => {
-    //     item.items.forEach((item) => {
-    //       if (item.type === 'label-value') {
-    //         item.data.forEach((item) => {
-    //           oldAttributesData.push({
-    //             id: item.id,
-    //             name: item.label,
-    //             values: [item.value],
-    //           });
-    //         });
-    //       } else if (item.type === 'table') {
-    //         item.headers.forEach((header) => {
-    //           oldAttributesData.push({
-    //             name: header.label,
-    //             values: item.contents.map((content) => content[header.field]),
-    //           });
-    //         });
-    //       }
-    //     });
-    //   });
-
-    // details
-    //   .filter(
-    //     (item) =>
-    //       item.items.filter(
-    //         (item) => item.type === 'label-value' || item.type === 'table',
-    //       ).length > 0,
-    //   )
-    //   .map((item) =>
-    //     item.items.map((item) => {
-    //       if (item.type === 'label-value') {
-    //         item.data.map((item) => {
-    //           attributes.push({
-    //             name: item.label,
-    //             values: [item.value],
-    //           });
-    //         });
-    //       } else if (item.type === 'table') {
-    //         item.headers.map((header) => {
-    //           attributes.push({
-    //             name: header.label,
-    //             values: item.contents.map((content) => content[header.field]),
-    //           });
-    //         });
-    //       }
-    //     }),
-    //   );
-
-    // attributes.map((attribute, index) => {
-    //   formData.append(`attributes[${index}][name]`, attribute.name);
-    //   attribute.values.map((value, valueIndex) => {
-    //     formData.append(`attributes[${index}][values][${valueIndex}]`, value);
-    //   });
-    // });
   };
 
   // * USE EFFECT

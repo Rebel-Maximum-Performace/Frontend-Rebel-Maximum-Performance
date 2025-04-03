@@ -279,6 +279,7 @@ const useInitFormAddProduct = () => {
     }
 
     if (removedImages.length > 0) {
+      console.log(removedImages, 'image');
       removedImages.map((image, index) => {
         console.log(image, 'image');
         formData.append(`removeImages[${index}]`, image.id);
@@ -517,7 +518,7 @@ const useInitFormAddProduct = () => {
       });
     }
 
-    attributesUtils();
+    // attributesUtils();
 
     edit(formData);
     setPopupProduct({

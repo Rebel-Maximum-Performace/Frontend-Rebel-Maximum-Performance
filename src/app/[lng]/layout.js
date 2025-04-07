@@ -25,6 +25,9 @@ const helvetica_bold = localFont({
 
 export const metadata = {
   title: 'Rebel Maximum Performance',
+  verification: {
+    google: 'hy0d4VAT1uNfn6ee_GnCDbx5iR_Chlb_1GNnE7W-6vQ',
+  },
 };
 
 export async function generateStaticParams() {

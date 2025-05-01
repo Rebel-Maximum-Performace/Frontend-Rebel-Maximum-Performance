@@ -19,7 +19,7 @@ const ImagesInput = ({
         Resolution 400 x 400 px
       </li>
       <li className="text-bodySm lg:text-bodyBase mb-[15px] lg:mb-[30px] text-primary-50">
-        Max. 10mb
+        Max. 1mb
       </li>
     </ul>
 

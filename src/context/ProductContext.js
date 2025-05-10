@@ -121,7 +121,7 @@ const ProductContextProvider = ({ children }) => {
       return false;
     }
 
-    if (details[0].items[0].content.length === 0) {
+    if (details[0].items?.[0]?.content?.length === 0) {
       setErrorFields({
         ...errorFields,
         description: {

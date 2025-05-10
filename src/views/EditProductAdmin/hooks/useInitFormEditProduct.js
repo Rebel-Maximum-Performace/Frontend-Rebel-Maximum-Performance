@@ -279,10 +279,11 @@ const useInitFormAddProduct = () => {
     }
 
     if (removedImages.length > 0) {
-      console.log(removedImages, 'image');
       removedImages.map((image, index) => {
         console.log(image, 'image');
-        formData.append(`removeImages[${index}]`, image.id);
+        if (image?.id) {
+          formData.append(`removeImages[${index}]`, image?.id);
+        }
       });
     }
 
@@ -337,6 +338,14 @@ const useInitFormAddProduct = () => {
                 );
                 formData.append(
                   `updateDetails[${index}][items][${itemIndex}][data][${dataIndex}][value]`,
+                  data.value,
+                );
+                formData.append(
+                  `addAttributes[${dataIndex}][name]`,
+                  data.label,
+                );
+                formData.append(
+                  `addAttributes[${dataIndex}][values][0]`,
                   data.value,
                 );
               });

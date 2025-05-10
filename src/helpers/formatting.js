@@ -19,8 +19,56 @@ export const parseNumber = (input) => {
   if (input == null || input === '') {
     return 0;
   }
-  const parsed = Number(input.toString().replace(/[^0-9]/g, ''));
+
+  let hasDecimal = false;
+  const cleanedInput = input
+    .toString()
+    .split('')
+    .filter((char) => {
+      if (char === '.' && !hasDecimal) {
+        hasDecimal = true; // Izinkan hanya satu titik
+        return true;
+      }
+      return /^\d+$/.test(char); // Hanya angka
+    })
+    .join('');
+
+  const parsed = cleanedInput;
+
   return isNaN(parsed) ? 0 : parsed;
+};
+
+export const parseDollarInput = (input) => {
+  // Handle null/undefined/empty input
+  if (!input && input !== 0) return 0;
+
+  const str = input.toString();
+
+  // Extract valid number parts (digits and first decimal point)
+  const [integerPart, decimalPart] = str
+    .replace(/[^\d.]/g, '') // Remove all non-digit/non-dot characters
+    .split('.')
+    .map((part) => part || '0'); // Handle empty parts
+
+  // Format decimal part
+  let formattedDecimal = '0';
+  if (str.includes('.')) {
+    if (str.endsWith('.')) {
+      formattedDecimal = '0'; // Handle trailing dot
+    } else {
+      formattedDecimal = decimalPart
+        .slice(0, 2) // Take max 2 decimal places
+        .padEnd(1, '0'); // Ensure at least 1 digit
+
+      // Simplify .00 to .0
+      if (formattedDecimal === '00') formattedDecimal = '0';
+    }
+  }
+
+  // Combine parts and convert to Number
+  const numberValue = parseFloat(`${integerPart}.${formattedDecimal}`);
+
+  return isNaN(numberValue) ? 0 : numberValue;
 };
 
 export const formatProductCode = (input) => {

@@ -228,7 +228,7 @@ const useInitFormAddProduct = () => {
     formData.append('sku', dataForm.sku);
     formData.append('amazonLink', dataForm.amazonLink);
     formData.append('alibabaLink', dataForm.alibabaLink);
-    formData.append('price', dataForm.price);
+    formData.append('price', Number(dataForm.price));
 
     dataForm.categories.map((category, index) => {
       formData.append(`categories[${index}]`, category.id);

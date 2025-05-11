@@ -10,7 +10,7 @@ const Sidebar = ({ selectedMenu }) => {
     { label: t(`MENU_ADMIN.Produk`), link: '/admin/products' },
     { label: t(`MENU_ADMIN.Kategori`), link: '/admin/categories' },
     { label: t(`MENU_ADMIN.Konten`), link: '/admin/contents' },
-    { label: t(`MENU_ADMIN.Riwayat`), link: '/admin/histories' },
+    // { label: t(`MENU_ADMIN.Riwayat`), link: '/admin/histories' },
   ].map((menu, index) => (
     <Link
       href={menu.link}

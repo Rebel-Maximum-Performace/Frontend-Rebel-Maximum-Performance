@@ -54,11 +54,11 @@ const ActivityHistory = ({ activityHistory }) => {
         <h3 className="text-bodySm md:text-h5 font-helvetica_bold text-netral-90">
           {t(`DASHBOARD.Riwayat Aktivitas`)}
         </h3>
-        <Link href="/admin/histories" onClick={() => setLoading(true)}>
+        {/* <Link href="/admin/histories" onClick={() => setLoading(true)}>
           <h3 className="text-bodySm md:text-h5 font-helvetica_regular text-primary-50">
             {t(`HOMEPAGE.Lihat Semua`)}
           </h3>
-        </Link>
+        </Link> */}
       </div>
       <Table
         headers={headersActivityHistory}
@@ -66,8 +66,8 @@ const ActivityHistory = ({ activityHistory }) => {
           ...item,
           createdDate: formatDate(item.created_at),
         }))}
-        actions={actionActivityHistory}
-        onClickAction={onClickAction}
+        // actions={actionActivityHistory}
+        // onClickAction={onClickAction}
       />
     </>
   );

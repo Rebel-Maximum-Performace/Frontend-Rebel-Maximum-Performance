@@ -46,14 +46,14 @@ const FooterUser = () => {
           </Link>
         </div>
         <div className="flex flex-col space-y-[5px]">
-          <h4 className="text-bodySm md:text-h4 font-bold font-helvetica_bold">
+          {/* <h4 className="text-bodySm md:text-h4 font-bold font-helvetica_bold">
             Resource Center
           </h4>
           <Link href="/faq">
             <p className="text-bodySm md:text-bodyBase hover:text-netral-30 cursor-pointer font-helvetica_regular">
               FAQ
             </p>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="flex flex-col lg:flex-row lg:space-x-[25px] space-y-[15px] lg:space-y-0">

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { toast, ToastContainer } from 'react-toastify';
 import { encryptData } from '@/helpers/encryption';
+import FloatingButton from './FloatingButton';
 
 const UserWrapper = ({ children }) => {
   const { mutate } = useMutation({
@@ -59,6 +60,7 @@ const UserWrapper = ({ children }) => {
         <Loader isLoading={loading} />
         {children}
         <ToastContainer />
+        <FloatingButton />
       </>
     );
   }

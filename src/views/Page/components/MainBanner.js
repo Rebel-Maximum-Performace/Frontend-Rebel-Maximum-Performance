@@ -50,7 +50,7 @@ const MainBanner = ({ mainBanners = [] }) => {
                   <h1 className="text-bodyMd lg:text-display text-netral-10">
                     {banner.text}
                   </h1>
-                  <Link
+                  {/* <Link
                     href={banner.link || '/'}
                     onClick={() => setLoading(true)}
                   >
@@ -61,7 +61,16 @@ const MainBanner = ({ mainBanners = [] }) => {
                     >
                       {t(`HOMEPAGE.Beli Sekarang`)}
                     </Button>
-                  </Link>
+                  </Link> */}
+                  <a href={banner.link || '/'} target="_blank">
+                    <Button
+                      color="third"
+                      variant="contained"
+                      className="cursor-pointer mt-[10px] lg:mt-[20px]"
+                    >
+                      {t(`HOMEPAGE.Beli Sekarang`)}
+                    </Button>
+                  </a>
                 </div>
               )}
             </div>

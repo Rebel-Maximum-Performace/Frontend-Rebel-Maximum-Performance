@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: 'https://rebelmaximumperformance-dev.vercel.app/',
+  siteUrl: 'https://rebelmaximumperformance.com/',
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,

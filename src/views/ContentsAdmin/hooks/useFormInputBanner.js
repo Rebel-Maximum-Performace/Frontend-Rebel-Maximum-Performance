@@ -10,16 +10,16 @@ const useFormInputBanner = () => {
   const { t, setLoading, onErrorMutation } = useWebContext();
   const rulesBanners = {
     mainBanner: [
-      `*${t(`CONTENTS.Resolusi`)} 1080 x 456 px`,
-      `*${t(`CONTENTS.Maks. ukuran file 5mb`)}`,
+      `*${t(`CONTENTS.Resolusi`)} 1024 x 456 px`,
+      `*${t(`CONTENTS.Maks. ukuran file 1mb`)}`,
     ],
     promotionBanner: [
-      `*${t(`CONTENTS.Resolusi`)} 1080 x 302 px`,
-      `*${t(`CONTENTS.Maks. ukuran file 5mb`)}`,
+      `*${t(`CONTENTS.Resolusi`)} 1024 x 302 px`,
+      `*${t(`CONTENTS.Maks. ukuran file 1mb`)}`,
     ],
     productPageBanner: [
       `*${t(`CONTENTS.Resolusi`)} 980 x 100 px`,
-      `*${t(`CONTENTS.Maks. ukuran file 5mb`)}`,
+      `*${t(`CONTENTS.Maks. ukuran file 1mb`)}`,
     ],
   };
 

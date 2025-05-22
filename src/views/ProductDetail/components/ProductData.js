@@ -5,6 +5,7 @@ import { formatMoney } from '@/helpers/formatting';
 import Button from '@/components/Button';
 import LogoAmazon from '@/assets/img/logo amazon.webp';
 import LogoAlibaba from '@/assets/img/logo alibaba.webp';
+import LogoWhatsapp from '@/assets/img/icon-wa.svg';
 import DetailsData from './DetailsData';
 import FAQ from '@/components/FAQ';
 import { arrayCategoryToString } from '@/helpers';
@@ -28,7 +29,7 @@ const ProductData = ({ idProduct, productName }) => {
             className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[10px] lg:rounded-[15px] mx-auto lg:mx-0 object-cover"
           />
         )}
-        <div className="w-full lg:w-[calc(100%-400px-3%)] lg:h-[400px] lg:ml-[3%]">
+        <div className="w-full lg:w-[calc(100%-400px-3%)]">
           {isLoadingDetail || !productDetail ? (
             <div className="w-full flex flex-col h-full justify-between">
               <div>
@@ -79,7 +80,11 @@ const ProductData = ({ idProduct, productName }) => {
                     {t('PRODUCTS.Beli di Amazon')}
                   </Button>
                 </a>
-                <a href={productDetail.alibabaLink} target="_blank">
+                <a
+                  href={productDetail.alibabaLink}
+                  target="_blank"
+                  className="mb-[10px] block"
+                >
                   <Button
                     color="primary"
                     variant="contained"
@@ -97,6 +102,34 @@ const ProductData = ({ idProduct, productName }) => {
                     {t('PRODUCTS.Beli di Alibaba')}
                   </Button>
                 </a>
+                <a
+                  href={`${
+                    process.env.NEXT_PUBLIC_LINK_WHATSAPP_PRODUCT
+                  }?text=Hello%2C%20I%E2%80%99m%20interested%20in%20your%20${
+                    productDetail.productName
+                  }.%20Could%20you%20please%20provide%20more%20details%20about%3A%20%0A%5BType%20question%20here%5D%0A%0ALink%20Product%20%3A%20https://rebelmaximumperformance.com/en/products/${productDetail.productName
+                    ?.replaceAll('/', '-')
+                    ?.replaceAll(' ', '-')}=${productDetail.productId}`}
+                  target="_blank"
+                  className="mb-[20px] block"
+                >
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    className="w-[50%] cursor-pointer justify-center"
+                    iconRight={
+                      <Image
+                        src={LogoWhatsapp}
+                        alt="Logo Alibaba"
+                        width={44}
+                        height={44}
+                        className="w-[18px] h-[18px] md:w-[24px] md:h-[24px] ml-[5px]"
+                      />
+                    }
+                  >
+                    {t('PRODUCTS.Beli di Whatsapp')}
+                  </Button>
+                </a>
               </div>
               <div className="flex w-full overflow-auto space-x-[5px] lg:space-x-[10px] scroll-custom order-1 lg:order-2 mt-[15px] lg:mt-0">
                 {productDetail.images.map((image, index) => (
@@ -106,7 +139,7 @@ const ProductData = ({ idProduct, productName }) => {
                     alt={`image-${productName}-${index}`}
                     width={100}
                     height={100}
-                    className={`w-[50px] md:w-[100px] h-[50px] md:h-[100px] rounded-[10px] lg:rounded-[15px] cursor-pointer object-cover ${
+                    className={`min-w-[50px] md:min-w-[100px] h-[50px] md:h-[100px] rounded-[10px] lg:rounded-[15px] cursor-pointer object-cover ${
                       index === activeImage ? 'border-2 border-primary-50' : ''
                     }`}
                     onClick={() => handleClickImage(index)}

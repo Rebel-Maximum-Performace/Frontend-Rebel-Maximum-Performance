@@ -1,9 +1,7 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
-
 import { Autoplay } from 'swiper/modules';
 import Link from 'next/link';
 import Button from '@/components/Button';
@@ -41,36 +39,35 @@ const MainBanner = ({ mainBanners = [] }) => {
       >
         {mainBanners?.map((banner, index) => (
           <SwiperSlide key={index} onClick={onClickBanner}>
-            <div
-              className="w-full h-[136px] md:h-[300px] lg:h-[456px] relative bg-cover bg-center cursor-pointer"
-              style={{ backgroundImage: `url(${banner.image})` }}
-            >
+            <div className="relative w-full cursor-pointer">
+              {/* Gambar banner yang responsive */}
+              <img
+                src={banner.image}
+                alt="Banner"
+                className="w-full h-auto object-cover"
+              />
+
+              {/* Overlay konten */}
               {showOverlay && (
-                <div className="absolute inset-0 bg-black bg-opacity-60 flex justify-center items-center flex-col text-center">
-                  <h1 className="text-bodyMd lg:text-display text-netral-10">
-                    {banner.text}
-                  </h1>
-                  {/* <Link
-                    href={banner.link || '/'}
-                    onClick={() => setLoading(true)}
-                  >
-                    <Button
-                      color="third"
-                      variant="contained"
-                      className="cursor-pointer mt-[10px] lg:mt-[20px]"
+                <div className="absolute inset-0 bg-black bg-opacity-60 flex justify-center items-center flex-col text-center p-4">
+                  <div className="max-w-4xl mx-auto">
+                    <h1 className="text-bodyMd lg:text-display text-netral-10">
+                      {banner.text}
+                    </h1>
+                    <a
+                      href={banner.link || '/'}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      {t(`HOMEPAGE.Beli Sekarang`)}
-                    </Button>
-                  </Link> */}
-                  <a href={banner.link || '/'} target="_blank">
-                    <Button
-                      color="third"
-                      variant="contained"
-                      className="cursor-pointer mt-[10px] lg:mt-[20px]"
-                    >
-                      {t(`HOMEPAGE.Beli Sekarang`)}
-                    </Button>
-                  </a>
+                      <Button
+                        color="third"
+                        variant="contained"
+                        className="cursor-pointer mt-[10px] lg:mt-[20px]"
+                      >
+                        {t(`HOMEPAGE.Beli Sekarang`)}
+                      </Button>
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
@@ -78,6 +75,7 @@ const MainBanner = ({ mainBanners = [] }) => {
         ))}
       </Swiper>
 
+      {/* Pagination */}
       <div className="w-full flex justify-center items-center py-[10px]">
         {mainBanners?.map((_, index) => (
           <span

@@ -47,6 +47,7 @@ const HomePage = () => {
       )}
       <ProductList />
       <Footer role="User" />
+      <p className='absolute right-0 bottom-0 text-2xl'>dev-1.0.0</p>
     </>
   );
 };
